@@ -1,3 +1,8 @@
-
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN0W=0.35u GT_MN0L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP0W=0.35u GT_MP0L=0.35u
-w=GT_MN0W l=GT_MN0L as=sx*(GT_MN0W) ad=sx*(GT_MN0W) ps=2*sx+(GT_MN0W) pd=2*sx+(GT_MN0W) nrd=lc/(GT_MN0W) nrs=lc/(GT_MN0W) ng=1
+// Library name: CORELIB
+// Cell name: CLKBU4
+// View name: cmos_sch
+subckt CLKBU4 A Q inh_gnd inh_vdd
+    I5 (net5 Q inh_gnd inh_vdd) invb_core GT_MP2W=6.40u GT_MP2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=3.20u GT_MN2L=0.35u
+    I6 (A net5 inh_gnd inh_vdd) invb_core GT_MP2W=1.60u GT_MP2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.80u GT_MN2L=0.35u
+ends CLKBU4
+// End of subcircuit definition.
