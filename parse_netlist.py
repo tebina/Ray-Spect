@@ -70,12 +70,14 @@ def handle_subcircuit(token):
     return [s]
 
 
-file = open('/home/ouldeitn/phd/software/Specrays/string_test', 'r')
-sample = file.read()
+def main():
+    file = open('/home/ouldeitn/phd/software/Specrays/string_test', 'r')
+    sample = file.read()
 
-# parse the netlist
-parsed_netlist = parse_netlist(sample)
-#print(parsed_netlist)
+    # parse the netlist
+    parsed_netlist = parse_netlist(sample)
+    print(parsed_netlist[2].parameters)
 
 
-print(parsed_netlist[2].parameters)
+if __name__ == '__main__':
+    main()
