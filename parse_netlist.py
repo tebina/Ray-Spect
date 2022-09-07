@@ -71,7 +71,7 @@ def handle_subcircuit(token):
 
 
 def main():
-    file = open('/home/ouldeitn/phd/software/Specrays/string_test', 'r')
+    file = open('string_test', 'r')
     sample = file.read()
 
     # parse the netlist
