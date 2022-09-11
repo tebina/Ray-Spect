@@ -14,7 +14,7 @@ def parse_netlist(file_string):
     open_parenthesis = pp.Suppress("(")
     close_parenthesis = pp.Suppress(")")
 
-    identifier = pp.Word(pp.alphanums + '_!<>')  # a word containing letters and numbers
+    identifier = pp.Word(pp.alphanums + '_!<>[]\\')  # a word containing letters and numbers
     expression = pp.Word(pp.alphanums + '._*+-/()')  # any expression, can be a float with negative or an equation
     comment = pp.Suppress("//" + pp.SkipTo(pp.LineEnd()))  # Skipping comments
 
@@ -76,7 +76,8 @@ def main():
 
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
-    print(parsed_netlist[2].parameters)
+    print(parsed_netlist
+          )
 
 
 if __name__ == '__main__':

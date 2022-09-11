@@ -27,3 +27,12 @@ parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L
     MP2 (net22 b net18 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends nor3_core
 // End of subcircuit definition.
+
+subckt sbox m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> c\<7\> c\<6\> c\<5\> c\<4\> c\<3\> c\<2\> c\<1\> c\<0\> clk rst inh_gnd inh_vdd
+    reg_reg\[7\] (clk n_606 c\<7\> UNCONNECTED6 n_0 inh_gnd inh_vdd) DFC3
+    reg_reg\[6\] (clk n_652 c\<6\> UNCONNECTED5 n_0 inh_gnd inh_vdd) DFC3
+    reg_reg\[5\] (clk n_623 c\<5\> UNCONNECTED4 n_0 inh_gnd inh_vdd) DFC3
+    reg_reg\[4\] (clk n_625 c\<4\> UNCONNECTED3 n_0 inh_gnd inh_vdd) DFC3
+    reg_reg\[3\] (clk n_626 c\<3\> UNCONNECTED2 n_0 inh_gnd inh_vdd) DFC3
+ends sbox
+
