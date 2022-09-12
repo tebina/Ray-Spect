@@ -55,7 +55,9 @@ def parse_netlist(file_string):
 
     subcircuit.setParseAction(handle_subcircuit)
 
-    netlist_element = (eol | comment | subcircuit)
+    top_view = pp.Group(pp.OneOrMore(instance)).setResultsName('topview')
+
+    netlist_element = (eol | comment | subcircuit | top_view)
     netlist = pp.ZeroOrMore(netlist_element) + pp.StringEnd()
 
     return netlist.parseString(file_string)
@@ -70,14 +72,25 @@ def handle_subcircuit(token):
     return [s]
 
 
-def main():
-    file = open('string_test', 'r')
-    sample = file.read()
+def handle_top_instances(token):
+    sc = token.top_view
+    name = sc.name
+    parent = sc.parent
+    parameters = sc.parameters
+    s = rh.SubCircuit(name, parent, parameters)
+    return [s]
 
+
+def main():
+    file = open('netlist/netlist', 'r')
+    sample = file.read()
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
-    print(parsed_netlist
-          )
+    print(parsed_netlist[1].__str__())
+
+    with open('netlist/written_netlist', 'w') as f:
+        f.write(parsed_netlist.__str__())
+        f.close
 
 
 if __name__ == '__main__':
