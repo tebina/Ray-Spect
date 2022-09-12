@@ -105,7 +105,7 @@ def main():
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
     for i in range(len(parsed_netlist)):
-        print(parsed_netlist[i])
+        print(parsed_netlist[i].typeof)
 
     # with open('netlist/written_netlist', 'w') as f:
     #     for i in parsed_netlist:
