@@ -1,7 +1,6 @@
 class NetlistElement:
     def __init__(self, typeof):
         self.typeof = typeof
-        self.parent = False
 
     def __str__(self):
         return self.typeof
@@ -29,12 +28,41 @@ class SubCircuit(NetlistElement):
         return self.name
 
 
-class Instance(NetlistElement):
+class TopInstance(NetlistElement):
     def __init__(self, name, parent, parameters):
         self.name = name
         self.parent = parent
         self.parameters = parameters
-        NetlistElement.__init__(self, 'instance')
+        NetlistElement.__init__(self, 'top_instance')
 
     def __str__(self):
         return self.typeof + " " + self.name + "@" + self.parent + str(self.parameters)
+
+    def __repr__(self):
+        return self.name
+
+
+class BlankLine(NetlistElement):
+    def __init__(self, name):
+        self.name = name
+        NetlistElement.__init__(self, 'blank_line')
+
+    def __str__(self):
+        return self.typeof
+
+    def __repr__(self):
+        return self.name
+
+
+class Comments(NetlistElement):
+    def __init__(self, name):
+        self.name = name
+        NetlistElement.__init__(self, 'comment')
+
+    def __str__(self):
+        return self.typeof
+
+    def __repr__(self):
+        return self.name
+
+
