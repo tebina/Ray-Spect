@@ -27,7 +27,7 @@ def parse_netlist(file_string):
 
     # Handling nets
     net = identifier
-    nets = pp.Group(pp.OneOrMore(net('net') | line_break))
+    nets = pp.Group(pp.OneOrMore(net('net') | line_break)).setResultsName('nets')
 
     # Handling parameter definition line which always starts with "parameters" and ends with a line break
     parameters = pp.Group(pp.Keyword("parameters").suppress() + many_parameters).setResultsName(
@@ -45,7 +45,7 @@ def parse_netlist(file_string):
     subcircuit_content = pp.Group(pp.ZeroOrMore(instance | eol)).setResultsName('subnetlist')
     subcircuit = pp.Group(
         # content matches ==> subckt <name> <nets> <eol>
-        pp.Keyword("subckt").suppress() + subcircuit_name('name') + nets('nets') + eol
+        pp.Keyword("subckt").suppress() + subcircuit_name('name') + nets('pins') + eol
         # content matches the parameters line
         + pp.ZeroOrMore(parameters)
         # content matches ==> parameters_line + instances | instances
@@ -58,6 +58,7 @@ def parse_netlist(file_string):
 
     blank_line = eol.setResultsName('blank_line')
 
+    parameters.setParseAction(handle_parameters_line)
     many_parameters.setParseAction(handle_parameters)
     top_instance.setParseAction(handle_top_instances)
     subcircuit.setParseAction(handle_subcircuit)
@@ -74,7 +75,8 @@ def handle_subcircuit(token):
     name = sc.name
     instances = sc.subnetlist
     parameters = sc.parameters
-    s = rh.SubCircuit(name, instances, parameters)
+    pins = sc.pins
+    s = rh.SubCircuit(name, pins, instances, parameters)
     return [s]
 
 
@@ -104,6 +106,18 @@ def handle_parameters(token):
         d[p[0]] = p[1]
     return d
 
+def handle_parameters_line(token):
+    """
+    transforms the list containing the parameters into a dictionary {parameter : value , ... }
+    :param token:
+    :return: dict
+    """
+    d = {}
+    for keys, values in token.parameters[0].items():
+        d[keys] = values
+    return d
+
+
 
 def main():
     file = open('string_test', 'r')
@@ -111,7 +125,7 @@ def main():
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
     # for i in range(len(parsed_netlist)):
-    print(parsed_netlist[13].name)
+    print(parsed_netlist[13].parameters)
 
     # with open('netlist/written_netlist', 'w') as f:
     #     for i in parsed_netlist:

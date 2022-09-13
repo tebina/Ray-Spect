@@ -7,11 +7,12 @@ class NetlistElement:
 
 
 class SubCircuit(NetlistElement):
-    def __init__(self, name, instances, parameters_line):
+    def __init__(self, name, pins, instances, parameters_line):
         self.name = name
         self.labels = {}
         self.instances = instances
         self.parameters = parameters_line
+        self.pins = pins
         NetlistElement.__init__(self, 'SubCircuit')
 
     def __str__(self):
