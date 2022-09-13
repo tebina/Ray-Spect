@@ -58,8 +58,8 @@ def parse_netlist(file_string):
 
     blank_line = eol.setResultsName('blank_line')
 
+    many_parameters.setParseAction(handle_parameters)
     top_instance.setParseAction(handle_top_instances)
-    blank_line.setParseAction(handle_blankline)
     subcircuit.setParseAction(handle_subcircuit)
     comment.setParseAction(handle_comments)
 
@@ -87,25 +87,31 @@ def handle_top_instances(token):
     return [s]
 
 
-def handle_blankline(token):
-    name = token.blank_line
-    s = rh.BlankLine(name)
-    return [s]
-
-
 def handle_comments(token):
     name = token.comment
     s = rh.Comments(name)
     return [s]
 
 
+def handle_parameters(token):
+    """
+    transforms the list containing the parameters into a dictionary {parameter : value , ... }
+    :param token:
+    :return: dict
+    """
+    d = {}
+    for p in token.many_parameters:
+        d[p[0]] = p[1]
+    return d
+
+
 def main():
-    file = open('netlist/netlist', 'r')
+    file = open('string_test', 'r')
     sample = file.read()
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
-    for i in range(len(parsed_netlist)):
-        print(parsed_netlist[i].typeof)
+    # for i in range(len(parsed_netlist)):
+    print(parsed_netlist[13].name)
 
     # with open('netlist/written_netlist', 'w') as f:
     #     for i in parsed_netlist:

@@ -7,11 +7,11 @@ class NetlistElement:
 
 
 class SubCircuit(NetlistElement):
-    def __init__(self, name, instances, parameters):
+    def __init__(self, name, instances, parameters_line):
         self.name = name
         self.labels = {}
         self.instances = instances
-        self.parameters = parameters
+        self.parameters = parameters_line
         NetlistElement.__init__(self, 'SubCircuit')
 
     def __str__(self):
@@ -42,18 +42,6 @@ class TopInstance(NetlistElement):
         return self.name
 
 
-class BlankLine(NetlistElement):
-    def __init__(self, name):
-        self.name = name
-        NetlistElement.__init__(self, 'blank_line')
-
-    def __str__(self):
-        return self.typeof
-
-    def __repr__(self):
-        return self.name
-
-
 class Comments(NetlistElement):
     def __init__(self, name):
         self.name = name
@@ -64,5 +52,3 @@ class Comments(NetlistElement):
 
     def __repr__(self):
         return self.name
-
-
