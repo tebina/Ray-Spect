@@ -1,0 +1,3 @@
+{%-for topinst in parsed_netlist %}
+{%-if topinst.typeof == "top_instance" %}
+    {{topinst.name}} ({% for nets in topinst.nets %}{{nets+" "}}{%- endfor %}) {{topinst.parent}} {% for keys, values in topinst.many_parameters.items() %} {{ keys + "=" + values }} {%- endfor %}

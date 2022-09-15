@@ -36,9 +36,10 @@ class SubCircuit(NetlistElement):
 
 
 class TopInstance(NetlistElement):
-    def __init__(self, name, parent, parameters):
+    def __init__(self, name, parent, nets, parameters):
         self.name = name
         self.parent = parent
+        self.nets = nets
         self.parameters = parameters
         NetlistElement.__init__(self, 'top_instance')
 

@@ -10,4 +10,15 @@ parameters {{subcircuit.parameters}}
 {%- endfor %}
 ends {{subcircuit.name}}
 {%- endif%}
+{%- if subcircuit.typeof == "top_instance" %}
+{{subcircuit.name}} ({% for nets in subcircuit.nets %}{{nets+" "}}{%- endfor %}) {{subcircuit.parent}} {% for keys, values in subcircuit.parameters.items() %} {{ keys + "=" + values }} {%- endfor %}
+{%- endif %}
+
+
+
+
+
+
+
+
 {%- endfor %}
