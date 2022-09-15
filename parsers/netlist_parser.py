@@ -39,6 +39,7 @@ def parse_netlist(file_string):
     instance = pp.Group(instance_name('name') + open_parenthesis + nets('nets') + close_parenthesis + parent_instance(
         'parent') + many_parameters + eol).setResultsName('instance')
 
+
     # Sub-circuit description handling
     subcircuit_name = identifier
     subcircuit_end = pp.Keyword("ends").suppress()  # Circuit end statement
@@ -71,6 +72,11 @@ def parse_netlist(file_string):
 
 
 def handle_subcircuit(token):
+    """
+    The handle_subcircuit() function takes a token as an argument and returns an instance of the SubCircuit class.
+    The SubCircuit class contains information about the subcircuit, including its name, pins, and instances. The
+    parameters variable holds the subcircuit's parameters.
+    """
     sc = token.subcircuit
     name = sc.name
     instances = sc.subnetlist
@@ -81,6 +87,15 @@ def handle_subcircuit(token):
 
 
 def handle_top_instances(token):
+    """
+    Handle the top instances of a given token.
+    Parameters:
+    - token (str) - The token to handle.
+    - name (str) - The name of the top instance.
+    - parent (str) - The parent instance of the top instance.
+    - parameters (dict) - The parameters of the top instance.
+    - s (TopInstance) - The top instance returned.
+    """
     sc = token.top_instance
     name = sc.name
     parent = sc.parent
@@ -90,6 +105,11 @@ def handle_top_instances(token):
 
 
 def handle_comments(token):
+    """
+    This function returns a list of Comments objects.
+    :param token:
+    :return: list of Comments objects
+    """
     name = token.comment
     s = rh.Comments(name)
     return [s]
@@ -106,31 +126,29 @@ def handle_parameters(token):
         d[p[0]] = p[1]
     return d
 
+
 def handle_parameters_line(token):
     """
-    transforms the list containing the parameters into a dictionary {parameter : value , ... }
-    :param token:
-    :return: dict
-    """
-    d = {}
-    for keys, values in token.parameters[0].items():
-        d[keys] = values
-    return d
+    Handle parameters on a line
 
+    This function will handle any parameters on a line, and return the text of the parameter as a string.
+    :param token
+    :return: a long string containing all the parameters in the dict
+    """
+    d = token.parameters[0]
+    t = " ".join(f"{k}={v}" for k, v in d.items())
+    return t
 
 
 def main():
-    file = open('string_test', 'r')
+    file = open('netlist/string_test', 'r')
     sample = file.read()
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
-    # for i in range(len(parsed_netlist)):
-    print(parsed_netlist[13].parameters)
 
-    # with open('netlist/written_netlist', 'w') as f:
-    #     for i in parsed_netlist:
-    #         f.write(parsed_netlist[i].__str__())
-    # f.close
+
+
+
 
 
 if __name__ == '__main__':

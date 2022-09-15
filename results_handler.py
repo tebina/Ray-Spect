@@ -25,6 +25,12 @@ class SubCircuit(NetlistElement):
         for i in range(len(self.instances)):
             self.instances[i] = mapping_function(self.instances[i])
 
+    def parameters_check(self):
+        if len(self.parameters) != 0:
+            return True
+        else:
+            return False
+
     def __repr__(self):
         return self.name
 
