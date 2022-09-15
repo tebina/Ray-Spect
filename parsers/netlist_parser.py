@@ -3,6 +3,19 @@ import results_handler as rh
 
 
 def parse_netlist(file_string):
+    """
+    This function parses a netlist file into a Python list of dictionaries, each containing:
+    - A comment
+    - A Sub-circuit
+    - A TOPLEVEL instance
+
+     The function handles any type of parameter, including those defined on the parameter definition line which
+     always starts with "parameters". It also handles instances and sub-circuits. Finally, it prints out the parsed
+     netlist.
+     :param file_string:
+     :return: parsed netlist
+    """
+
     # define a tabulation as a whitespace
     ws = ' \t'
     pp.ParserElement.setDefaultWhitespaceChars(ws)
@@ -56,15 +69,13 @@ def parse_netlist(file_string):
     # TOP instance is an instance format
     top_instance = instance.setResultsName('top_instance')
 
-    blank_line = eol.setResultsName('blank_line')
-
     parameters.setParseAction(handle_parameters_line)
     many_parameters.setParseAction(handle_parameters)
     top_instance.setParseAction(handle_top_instances)
     subcircuit.setParseAction(handle_subcircuit)
     comment.setParseAction(handle_comments)
 
-    netlist_element = (eol | comment | subcircuit | top_instance | blank_line)
+    netlist_element = (eol | comment | subcircuit | top_instance)
     netlist = pp.ZeroOrMore(netlist_element) + pp.StringEnd()
 
     return netlist.parseString(file_string)
@@ -144,6 +155,7 @@ def main():
     sample = file.read()
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
+    print(parsed_netlist[13])
 
 
 if __name__ == '__main__':
