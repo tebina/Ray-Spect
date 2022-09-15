@@ -39,7 +39,6 @@ def parse_netlist(file_string):
     instance = pp.Group(instance_name('name') + open_parenthesis + nets('nets') + close_parenthesis + parent_instance(
         'parent') + many_parameters + eol).setResultsName('instance')
 
-
     # Sub-circuit description handling
     subcircuit_name = identifier
     subcircuit_end = pp.Keyword("ends").suppress()  # Circuit end statement
@@ -141,14 +140,10 @@ def handle_parameters_line(token):
 
 
 def main():
-    file = open('netlist/string_test', 'r')
+    file = open('../netlist/netlist', 'r')
     sample = file.read()
     # parse the netlist
     parsed_netlist = parse_netlist(sample)
-
-
-
-
 
 
 if __name__ == '__main__':
