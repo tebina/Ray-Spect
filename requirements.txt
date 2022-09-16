@@ -1,2 +1,4 @@
 pyparsing~=3.0.7
 Jinja2~=3.0.3
+networkx~=2.8.6
+matplotlib~=3.5.1
