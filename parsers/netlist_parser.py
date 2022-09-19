@@ -137,15 +137,3 @@ def handle_parameters_line(token):
     d = token.parameters[0]
     t = " ".join(f"{k}={v}" for k, v in d.items())
     return t
-
-
-# def main():
-#     # file = open('../netlist/netlist', 'r')
-#     # sample = file.read()
-#     # # parse the netlist
-#     # parsed_netlist = parse_netlist(sample)
-#     # print(parsed_netlist[13].parameters)
-#
-#
-# if __name__ == '__main__':
-#     main()

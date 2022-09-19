@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 
 class GenerateGraph:
-
     edge_colors: List[str]
 
     def __init__(self, parsed_netlist, starting_points):
@@ -24,21 +23,39 @@ class GenerateGraph:
         self.excluded_nodes = []
         self.edge_colors = []
         self.weights = []
-        for each_tuple in self.starting_points:
-            for i in range(0, len(each_tuple) - 1):
-                self.edges.append([each_tuple[i], each_tuple[i + 1]])
-                self.excluded_nodes.append(each_tuple[i])
-                self.edge_colors.append("r")
-                self.weights.append(1)
-        for component in self.parsed_netlist:
-            if component.typeof == "SubCircuit":
-                if component.name not in self.excluded_nodes:
-                    for each_instance in component.instances:
-                        self.edges.append([component.name, each_instance.parent])
-                        self.edge_colors.append("b")
-                        self.weights.append(0.5)
+        # for each_tuple in self.starting_points:
+        #     for i in range(0, len(each_tuple) - 1):
+        #         self.edges.append([each_tuple[i], each_tuple[i + 1]])
+        #         self.excluded_nodes.append(each_tuple[i])
+        #         self.edge_colors.append("r")
+        #         self.weights.append(1)
+        # for component in self.parsed_netlist:
+        #     if component.typeof == "SubCircuit":
+        #         if component.name not in self.excluded_nodes:
+        #             for each_instance in component.instances:
+        #                 self.edges.append([component.name, each_instance.parent])
+        #                 self.edge_colors.append("b")
+        #                 self.weights.append(0.5)
+        #     if component.typeof == "top_instance":
+        #         if component.name not in self.excluded_nodes:
+        #             self.edges.append([component.name, component.parent])
+        #             self.edge_colors.append("b")
+        #             self.weights.append(0.5)
+        # self.graph = nx.DiGraph(self.edges)
 
-        self.graph = nx.DiGraph(self.edges)
+        new_tuples = []
+        for component in self.parsed_netlist:
+            if component.typeof == "top_instance":
+                for each_tuple in self.starting_points:
+                    temp_list = list(each_tuple)
+                    if temp_list[0] == component.name:
+                        print(component.name, "====>", component.parent)
+                        self.edges.append([component.name, component.parent])
+                        temp_list[0] = component.parent
+                        new_tuples.append(temp_list)
+
+        print(self.edges)
+        print(new_tuples)
 
     @property
     def edge_coloring(self):
