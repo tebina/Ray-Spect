@@ -1,7 +1,5 @@
-import jinja2
 from parsers.netlist_parser import *
-import networkx as nx
-from generate_graph import GenerateGraph
+from utils.generate_graph import GenerateGraph
 
 file = open('netlist/netlist', 'r')
 sample = file.read()

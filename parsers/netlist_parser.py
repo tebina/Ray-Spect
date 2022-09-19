@@ -1,5 +1,5 @@
 import pyparsing as pp
-import results_handler as rh
+from utils import results_handler as rh
 
 
 def parse_netlist(file_string):
@@ -139,13 +139,13 @@ def handle_parameters_line(token):
     return t
 
 
-def main():
-    file = open('../netlist/netlist', 'r')
-    sample = file.read()
-    # parse the netlist
-    parsed_netlist = parse_netlist(sample)
-    print(parsed_netlist[13].parameters)
-
-
-if __name__ == '__main__':
-    main()
+# def main():
+#     # file = open('../netlist/netlist', 'r')
+#     # sample = file.read()
+#     # # parse the netlist
+#     # parsed_netlist = parse_netlist(sample)
+#     # print(parsed_netlist[13].parameters)
+#
+#
+# if __name__ == '__main__':
+#     main()
