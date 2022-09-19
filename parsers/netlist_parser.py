@@ -116,7 +116,7 @@ def handle_top_instances(token):
 
 def handle_parameters(token):
     """
-    transforms the list containing the parameters into a dictionary {parameter : value , ... }
+    transforms the list containing the parameters as tuples into a dictionary {parameter : value , ... }
     :param token:
     :return: dict
     """
