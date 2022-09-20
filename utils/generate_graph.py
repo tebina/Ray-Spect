@@ -19,10 +19,9 @@ class GenerateGraph:
         """
         self.edges = []
         self.parsed_netlist = parse_netlist(parsed_netlist)
-        self.starting_points = starting_points
-        self.excluded_nodes = []
         self.edge_colors = []
         self.weights = []
+        excluded_nodes = []
         starting_edges_color = "r"
         normal_edges_color = "b"
         starting_edges_weight = 1
@@ -30,7 +29,7 @@ class GenerateGraph:
         new_starting_points = []
         for component in self.parsed_netlist:
             if component.typeof == "top_instance":
-                for each_tuple in self.starting_points:
+                for each_tuple in starting_points:
                     temp_list = list(each_tuple)
                     if temp_list[0] == component.name:  # Handling weird top sub-circuit instantiation names
                         self.edges.append([component.name, component.parent])  # TODO: Better algo for top modules
@@ -42,12 +41,12 @@ class GenerateGraph:
         for each_tuple in new_starting_points:
             for i in range(0, len(each_tuple) - 1):
                 self.edges.append([each_tuple[i], each_tuple[i + 1]])
-                self.excluded_nodes.append(each_tuple[i])
+                excluded_nodes.append(each_tuple[i])
                 self.edge_colors.append(starting_edges_color)
                 self.weights.append(starting_edges_weight)
         for component in self.parsed_netlist:
             if component.typeof == "SubCircuit":
-                if component.name not in self.excluded_nodes:
+                if component.name not in excluded_nodes:
                     for each_instance in component.instances:
                         self.edges.append([component.name, each_instance.parent])
                         self.edge_colors.append(normal_edges_color)
