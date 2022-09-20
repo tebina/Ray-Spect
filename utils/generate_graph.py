@@ -26,7 +26,7 @@ class GenerateGraph:
         normal_edges_color = "b"
         starting_edges_weight = 1
         normal_edges_weight = 0.5
-        new_starting_points = []
+        self.new_starting_points = []
         for component in self.parsed_netlist:
             if component.typeof == "top_instance":
                 for each_tuple in starting_points:
@@ -37,8 +37,8 @@ class GenerateGraph:
                         self.weights.append(starting_edges_weight)
                         if len(each_tuple) >= 3:
                             temp_list[0] = component.parent
-                        new_starting_points.append(temp_list)
-        for each_tuple in new_starting_points:
+                        self.new_starting_points.append(temp_list)
+        for each_tuple in self.new_starting_points:
             for i in range(0, len(each_tuple) - 1):
                 self.edges.append([each_tuple[i], each_tuple[i + 1]])
                 excluded_nodes.append(each_tuple[i])
@@ -76,4 +76,8 @@ class GenerateGraph:
         return self.graph
 
     def find_path(self, starting_node):
-        return list(nx.dfs_tree(self.graph, starting_node).edges())
+        return list(nx.edge_bfs(self.graph, starting_node))
+
+    def depth_dict(self, source):
+        return nx.shortest_path_length(self.graph, source=source)
+
