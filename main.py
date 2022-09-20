@@ -6,10 +6,10 @@ sample = file.read()
 parsed_netlist = parse_netlist(sample)
 
 target_instances = [("sbox2", "g50835", "INV2"), ("sbox1", "g50868__1474", "NAND22"),
-                    ("sbox1", "g50982__7118", "NAND23"), ("sbox1", "g50437__1840", "NAND31") , ("g44", "NAND31")]
+                    ("sbox1", "g50982__7118", "NAND23"), ("sbox1", "g50437__1840", "NAND31") , ("g44", "NAND31"), ("sbox3","g51021","NOR31")]
 
-object = GenerateGraph(sample, target_instances)
-
+graph_instance = GenerateGraph(sample, target_instances)
+graph_instance.plot_graph()
 
 # templateLoader = jinja2.FileSystemLoader(searchpath="./")
 # templateEnv = jinja2.Environment(loader=templateLoader)
