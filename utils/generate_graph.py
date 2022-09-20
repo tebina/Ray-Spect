@@ -23,25 +23,6 @@ class GenerateGraph:
         self.excluded_nodes = []
         self.edge_colors = []
         self.weights = []
-        # for each_tuple in self.starting_points:
-        #     for i in range(0, len(each_tuple) - 1):
-        #         self.edges.append([each_tuple[i], each_tuple[i + 1]])
-        #         self.excluded_nodes.append(each_tuple[i])
-        #         self.edge_colors.append("r")
-        #         self.weights.append(1)
-        # for component in self.parsed_netlist:
-        #     if component.typeof == "SubCircuit":
-        #         if component.name not in self.excluded_nodes:
-        #             for each_instance in component.instances:
-        #                 self.edges.append([component.name, each_instance.parent])
-        #                 self.edge_colors.append("b")
-        #                 self.weights.append(0.5)
-        #     if component.typeof == "top_instance":
-        #         if component.name not in self.excluded_nodes:
-        #             self.edges.append([component.name, component.parent])
-        #             self.edge_colors.append("b")
-        #             self.weights.append(0.5)
-        # self.graph = nx.DiGraph(self.edges)
         starting_edges_color = "r"
         normal_edges_color = "b"
         starting_edges_weight = 1
