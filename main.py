@@ -13,10 +13,8 @@ target_instances = [("sbox3", "g50992", "NAND22"), ("sbox2", "g50717", "INV2"),
                     ("sbox2", "g50675__1840", "NOR21"), ("sbox2", "g50664", "INV2"), ("g44", "NAND31"),
                     ("sbox3", "g51021", "NOR31")]
 
-graph_instance = GenerateGraph(sample, target_instances)
 
-path = graph_instance.find_path("sbox2")
-pp_obj = pp(sample, target_instances, 0, 0)
+pp_obj = pp(parsed_netlist, target_instances, 0, 0)
 pp_obj.prepare_edges()
 pp_obj.depth_check()
 pp_obj.generate_netlist()

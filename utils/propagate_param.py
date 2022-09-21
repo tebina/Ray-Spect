@@ -6,14 +6,12 @@ import jinja2
 
 class PropagateParam:
 
-    def __init__(self, netlist, starting_points, parameter, value):
-        self.netlist_buffer = parse_netlist(netlist)
+    def __init__(self, parsed_netlist, starting_points, parameter, value):
+        self.netlist_buffer = parsed_netlist
         self.starting_points = starting_points
         self.parameter = parameter
         self.value = value
         self.graph_instance = GenerateGraph(self.netlist_buffer, self.starting_points)
-        # self.depth_dict = self.graph_instance.depth_dict("sbox3")
-        # print(self.depth_dict)
 
     def depth_check(self):
         depths = []
@@ -31,10 +29,12 @@ class PropagateParam:
             path_tuples = self.graph_instance.find_path(tuples[0])
             for edge in path_tuples:
                 for component in self.netlist_buffer:
-                    if component.typeof == "SubCircuit" and component.visited is False:
+                    if component.typeof == "SubCircuit":
+                        if component.visited is False:
+                            if component.name == edge[0]:
+                                component.parameters += " pipi=kaki"
+                                component.visited = True
                         if component.name == edge[0]:
-                            component.parameters += " pipi=kaki"
-                            component.visited = True
                             for instance in component.instances:
                                 if instance.name == edge[1] or instance.parent == edge[1]:
                                     instance.many_parameters["pipi"] = "kaki"

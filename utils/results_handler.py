@@ -1,6 +1,7 @@
 class NetlistElement:
     def __init__(self, typeof):
         self.typeof = typeof
+        self.visited = False
 
     def __str__(self):
         return self.typeof

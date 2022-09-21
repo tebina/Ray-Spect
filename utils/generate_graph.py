@@ -18,7 +18,7 @@ class GenerateGraph:
         :param starting_points:
         """
         self.edges = []
-        self.parsed_netlist = parse_netlist(parsed_netlist)
+        self.parsed_netlist = parsed_netlist
         self.edge_colors = []
         self.weights = []
         excluded_nodes = []
