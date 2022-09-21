@@ -2239,9 +2239,9 @@ parameters  pipi=kaki
     g50982 (n_15 FE_OFN2_n_2 n_40 inh_gnd inh_vdd ) NAND23 
 ends sbox_2
 sbox1 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut1\<7\> SboxOut1\<6\> SboxOut1\<5\> SboxOut1\<4\> SboxOut1\<3\> SboxOut1\<2\> SboxOut1\<1\> SboxOut1\<0\> clk FE_PHN7_rst 0 vdd! ) sbox 
-sbox2 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut2\<7\> SboxOut2\<6\> SboxOut2\<5\> SboxOut2\<4\> SboxOut2\<3\> SboxOut2\<2\> SboxOut2\<1\> SboxOut2\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_1 
+sbox2 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut2\<7\> SboxOut2\<6\> SboxOut2\<5\> SboxOut2\<4\> SboxOut2\<3\> SboxOut2\<2\> SboxOut2\<1\> SboxOut2\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_1  pipi=kaki
 FE_PHC7_rst (rst FE_PHN7_rst 0 vdd! ) CLKBU2 
-sbox3 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut3\<7\> SboxOut3\<6\> SboxOut3\<5\> SboxOut3\<4\> SboxOut3\<3\> SboxOut3\<2\> SboxOut3\<1\> SboxOut3\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_2 
+sbox3 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut3\<7\> SboxOut3\<6\> SboxOut3\<5\> SboxOut3\<4\> SboxOut3\<3\> SboxOut3\<2\> SboxOut3\<1\> SboxOut3\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_2  pipi=kaki
 g47 (n_0 c\<7\> 0 vdd! ) INV3 
 g45 (n_1 c\<6\> 0 vdd! ) INV3 
 g43 (n_2 c\<5\> 0 vdd! ) INV3 
@@ -2252,7 +2252,7 @@ g33 (n_6 c\<1\> 0 vdd! ) INV3
 g34 (n_7 c\<0\> 0 vdd! ) INV3 
 g48 (SboxOut3\<7\> SboxOut1\<7\> SboxOut2\<7\> n_0 0 vdd! ) NAND31 
 g46 (SboxOut3\<6\> SboxOut1\<6\> SboxOut2\<6\> n_1 0 vdd! ) NAND31 
-g44 (SboxOut3\<5\> SboxOut1\<5\> SboxOut2\<5\> n_2 0 vdd! ) NAND31 
+g44 (SboxOut3\<5\> SboxOut1\<5\> SboxOut2\<5\> n_2 0 vdd! ) NAND31  pipi=kaki
 g42 (SboxOut3\<4\> SboxOut1\<4\> SboxOut2\<4\> n_3 0 vdd! ) NAND31 
 g40 (SboxOut3\<3\> SboxOut1\<3\> SboxOut2\<3\> n_4 0 vdd! ) NAND31 
 g38 (SboxOut3\<2\> SboxOut1\<2\> SboxOut2\<2\> n_5 0 vdd! ) NAND31 

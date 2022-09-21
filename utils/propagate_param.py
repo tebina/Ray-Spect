@@ -15,7 +15,10 @@ class PropagateParam:
         depths = []
         for tuples in self.starting_points:
             depths.append(self.graph_instance.depth_dict(tuples[0]).values())
-        print(depths)
+        return depths
+
+    def variable_naming(self):
+        depths = self.depth_check()
 
     def propagate_param(self):
         """
@@ -38,6 +41,12 @@ class PropagateParam:
                             for instance in component.instances:
                                 if instance.name == edge[1] or instance.parent == edge[1]:
                                     instance.many_parameters["pipi"] = "kaki"
+                    if component.typeof == "top_instance":
+                        if component.visited is False:
+                            if component.name == edge[0]:
+                                component.parameters["pipi"] = "kaki"
+                                component.visited = True
+
         return self.netlist_buffer
 
     def generate_netlist(self):
