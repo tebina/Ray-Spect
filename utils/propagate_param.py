@@ -1,6 +1,4 @@
 from utils.generate_graph import GenerateGraph
-from parsers.netlist_parser import parse_netlist
-
 import jinja2
 
 
@@ -19,12 +17,14 @@ class PropagateParam:
             depths.append(self.graph_instance.depth_dict(tuples[0]).values())
         print(depths)
 
-    def prepare_edges(self):
-        for tuples in self.starting_points:
-            path_tuples = self.graph_instance.find_path(tuples[0])
-            print(path_tuples)
-
     def propagate_param(self):
+        """
+        This function propagates parameters from one circuit in a netlist to another circuit. The first circuit in
+        the netlist is the source circuit, and the second circuit is the target circuit. The function finds the paths
+        between the circuits and updates the parameter values for each circuit along the path. It also checks to see
+        if the circuit has been visited already, and updates the parameter value if it has. Finally, it returns the
+        modified netlist buffer.
+        """
         for tuples in self.starting_points:
             path_tuples = self.graph_instance.find_path(tuples[0])
             for edge in path_tuples:
@@ -41,11 +41,17 @@ class PropagateParam:
         return self.netlist_buffer
 
     def generate_netlist(self):
-        templateLoader = jinja2.FileSystemLoader(searchpath="./")
-        templateEnv = jinja2.Environment(loader=templateLoader)
-        TEMPLATE_FILE = "templates/subcircuit_template.txt"
-        template = templateEnv.get_template(TEMPLATE_FILE)
+        """
+        Generate a netlist from the netlist buffer.
+
+        This function takes a netlist buffer input and produces a netlist file. The netlist file can be used for
+        further circuit simulation or design.
+        """
+        template_loader = jinja2.FileSystemLoader(searchpath="./")
+        template_env = jinja2.Environment(loader=template_loader)
+        template_file = "templates/subcircuit_template.txt"
+        template = template_env.get_template(template_file)
         output = template.render(parsed_netlist=self.propagate_param())
-        f = open("generated_netlist", "w")
+        f = open("netlist/generated_netlist", "w")
         f.write(output)
         f.close()

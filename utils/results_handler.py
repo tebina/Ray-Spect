@@ -1,4 +1,10 @@
 class NetlistElement:
+    """
+    The NetlistElement class represents a particular type of network element in a
+    netlist. A NetlistElement instance has a type which can be one of
+    "SubCircuit", "top_instance", or "comment". It also has a visited property which
+    states whether the element has been visited already.
+    """
     def __init__(self, typeof):
         self.typeof = typeof
         self.visited = False
@@ -8,6 +14,10 @@ class NetlistElement:
 
 
 class SubCircuit(NetlistElement):
+    """
+    This class defines a SubCircuit. A SubCircuit is a NetlistElement that represents a circuit with a single input
+    and single output. It has a name, labels, instances, and parameters.
+    """
     def __init__(self, name, pins, instances, parameters_line):
         self.name = name
         self.labels = {}
@@ -37,6 +47,11 @@ class SubCircuit(NetlistElement):
 
 
 class TopInstance(NetlistElement):
+    """
+    TopInstance is a class that defines the top-level instance of a nets definitions in a NetlistElement. It is
+    initialized with the name, parent, and nets of the top-level nets defined in the NetlistElement. The nets and
+    parameters can be accessed through the self.nets and self.parameters properties.
+    """
     def __init__(self, name, parent, nets, parameters):
         self.name = name
         self.parent = parent
@@ -52,6 +67,9 @@ class TopInstance(NetlistElement):
 
 
 class Comments(NetlistElement):
+    """
+    This class defines a comment in a netlist. Comments are used to document the design of a circuit.
+    """
     def __init__(self, name):
         self.name = name
         NetlistElement.__init__(self, 'comment')

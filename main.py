@@ -15,7 +15,6 @@ target_instances = [("sbox3", "g50992", "NAND22"), ("sbox2", "g50717", "INV2"),
 
 
 pp_obj = pp(parsed_netlist, target_instances, 0, 0)
-pp_obj.prepare_edges()
 pp_obj.depth_check()
 pp_obj.generate_netlist()
 
