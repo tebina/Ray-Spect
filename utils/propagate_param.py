@@ -17,9 +17,6 @@ class PropagateParam:
             depths.append(self.graph_instance.depth_dict(tuples[0]).values())
         return depths
 
-    def variable_naming(self):
-        depths = self.depth_check()
-
     def propagate_param(self):
         """
         This function propagates parameters from one circuit in a netlist to another circuit. The first circuit in
