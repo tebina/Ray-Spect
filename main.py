@@ -10,12 +10,11 @@ sample = file.read()
 parsed_netlist = parse_netlist(sample)
 
 target_instances = [("sbox3", "g50992", "NAND22"), ("sbox2", "g50717", "INV2"),
-                    ("sbox2", "g50675__1840", "NOR21"), ("sbox2", "g50664", "INV2"), ("g44", "NAND31"),
+                    ("sbox2", "g50675__1840", "NOR21"), ("sbox2", "g50664", "INV2"),
                     ("sbox3", "g51021", "NOR31")]
 
 
-pp_obj = pp(parsed_netlist, target_instances, "vthadd", 0)
-pp_obj.depth_check()
+pp_obj = pp(parsed_netlist, target_instances, "vthadd", 99)
 pp_obj.generate_netlist()
 
 

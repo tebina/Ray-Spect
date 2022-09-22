@@ -29,7 +29,8 @@ def parse_netlist(file_string):
 
     identifier = pp.Word(pp.alphanums + '_!<>[]\\')  # a word containing letters and numbers
     expression = pp.Word(pp.alphanums + '._*+-/()')  # any expression, can be a float with negative or an equation
-    comment = pp.Group(pp.Keyword("//").suppress() + pp.SkipTo(pp.LineEnd())).setResultsName('comment')  # Skipping comments
+    comment = pp.Group(pp.Keyword("//").suppress() + pp.SkipTo(pp.LineEnd())).setResultsName(
+        'comment')  # Skipping comments
 
     # Handling parameters of any type <Var = Value>
     param_name = identifier

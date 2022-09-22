@@ -11,11 +11,15 @@ class PropagateParam:
         self.value = value
         self.graph_instance = GenerateGraph(self.netlist_buffer, self.starting_points)
 
-    def depth_check(self):
-        depths = []
-        for tuples in self.starting_points:
-            depths.append(self.graph_instance.depth_dict(tuples[0]).values())
-        return depths
+    def depth_check(self, starting_node):
+        depth = self.graph_instance.depth_dict(starting_node)
+        return depth
+
+    def reverse_depth(self, depth_list):
+        iterable_list = list(depth_list.values())
+        reversed_list = [max(iterable_list) - x for x in iterable_list]
+        reversed_dict = dict(zip(depth_list.keys(), reversed_list))
+        return reversed_dict
 
     def propagate_param(self):
         """
@@ -27,23 +31,24 @@ class PropagateParam:
         """
         for tuples in self.starting_points:
             path_tuples = self.graph_instance.find_path(tuples[0])
+            depth_list = self.depth_check(tuples[0])
+            reverse_depth = self.reverse_depth(depth_list)
             for edge in path_tuples:
                 for component in self.netlist_buffer:
                     if component.typeof == "SubCircuit":
                         if component.visited is False:
                             if component.name == edge[0]:
-                                component.parameters += " pipi=kaki"
+                                component.parameters += " " + self.parameter + str(reverse_depth[component.name]) + "=0"
                                 component.visited = True
                         if component.name == edge[0]:
                             for instance in component.instances:
-                                if instance.name == edge[1] or instance.parent == edge[1]:
-                                    instance.many_parameters["pipi"] = "kaki"
-                    if component.typeof == "top_instance":
-                        if component.visited is False:
-                            if component.name == edge[0]:
-                                component.parameters["pipi"] = "kaki"
-                                component.visited = True
-
+                                if instance.name == edge[1]:
+                                    instance.many_parameters[
+                                        self.parameter + str(reverse_depth[component.name] - 2)] = str(self.value)
+                                elif instance.parent == edge[1]:
+                                    instance.many_parameters[
+                                        self.parameter + str(reverse_depth[component.name] - 1)] = self.parameter + str(
+                                        reverse_depth[component.name])
         return self.netlist_buffer
 
     def generate_netlist(self):

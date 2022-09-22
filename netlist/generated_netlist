@@ -9,17 +9,17 @@ parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN0W=0.35u GT_MN0L
 ends clinva_core
 
 subckt inv_core in out inh_gnd inh_vdd 
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=0.35u GT_MP1L=0.35u vthadd1=10 pipi=kaki
-    MN1 (out in inh_gnd inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd1 pipi=kaki
-    MP1 (out in inh_vdd inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd1 pipi=kaki
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=0.35u GT_MP1L=0.35u vthadd1=10 vthadd1=0
+    MN1 (out in inh_gnd inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd1 vthadd0=vthadd1
+    MP1 (out in inh_vdd inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd1 vthadd0=vthadd1
 ends inv_core
 
 subckt nand2_core a b out inh_gnd inh_vdd 
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u pipi=kaki
-    MN1 (out a net13 inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 pipi=kaki
-    MN2 (net13 b inh_gnd inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 pipi=kaki
-    MP1 (out a inh_vdd inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 pipi=kaki
-    MP2 (out b inh_vdd inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 pipi=kaki
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd1=0
+    MN1 (out a net13 inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd0=vthadd1
+    MN2 (net13 b inh_gnd inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd0=vthadd1
+    MP1 (out a inh_vdd inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd0=vthadd1
+    MP2 (out b inh_vdd inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd0=vthadd1
 ends nand2_core
 
 subckt tgate_core en ep in out inh_gnd inh_vdd 
@@ -66,23 +66,22 @@ subckt NAND41 A B C D Q inh_gnd inh_vdd
 ends NAND41
 
 subckt INV2 A Q inh_gnd inh_vdd 
-parameters vthadd2=2 pipi=kaki
-    I3 (A Q inh_gnd inh_vdd ) inv_core  GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=3.20u GT_MP1L=0.35u vthadd1=vthadd2 pipi=kaki
+parameters vthadd2=2 vthadd2=0
+    I3 (A Q inh_gnd inh_vdd ) inv_core  GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=3.20u GT_MP1L=0.35u vthadd1=vthadd2
 ends INV2
 
 subckt nand3_core a b c out inh_gnd inh_vdd 
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u pipi=kaki
-    MN1 (out a net6 inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 pipi=kaki
-    MN3 (net10 c inh_gnd inh_gnd ) modn  w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 pipi=kaki
-    MN2 (net6 b net10 inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 pipi=kaki
-    MP1 (out a inh_vdd inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 pipi=kaki
-    MP3 (out c inh_vdd inh_vdd ) modp  w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 pipi=kaki
-    MP2 (out b inh_vdd inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 pipi=kaki
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN1 (out a net6 inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN3 (net10 c inh_gnd inh_gnd ) modn  w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MN2 (net6 b net10 inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP1 (out a inh_vdd inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP3 (out c inh_vdd inh_vdd ) modp  w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
+    MP2 (out b inh_vdd inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends nand3_core
 
 subckt NAND31 A B C Q inh_gnd inh_vdd 
-parameters  pipi=kaki
-    I1 (A B C Q inh_gnd inh_vdd ) nand3_core  GT_MN1W=3.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=3.00u GT_MN3L=0.35u GT_MN2W=3.00u GT_MN2L=0.35u GT_MP1W=1.60u GT_MP1L=0.35u GT_MP3W=1.60u GT_MP3L=0.35u GT_MP2W=1.60u GT_MP2L=0.35u pipi=kaki
+    I1 (A B C Q inh_gnd inh_vdd ) nand3_core  GT_MN1W=3.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=3.00u GT_MN3L=0.35u GT_MN2W=3.00u GT_MN2L=0.35u GT_MP1W=1.60u GT_MP1L=0.35u GT_MP3W=1.60u GT_MP3L=0.35u GT_MP2W=1.60u GT_MP2L=0.35u
 ends NAND31
 
 subckt nor4_core a b c d out inh_gnd inh_vdd 
@@ -102,8 +101,8 @@ subckt NOR40 A B C D Q inh_gnd inh_vdd
 ends NOR40
 
 subckt NAND22 A B Q inh_gnd inh_vdd 
-parameters  pipi=kaki
-    I1 (A B Q inh_gnd inh_vdd ) nand2_core  GT_MN1W=4.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=4.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u pipi=kaki
+parameters  vthadd2=0
+    I1 (A B Q inh_gnd inh_vdd ) nand2_core  GT_MN1W=4.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=4.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u vthadd1=vthadd2
 ends NAND22
 
 subckt aoi22_core a b c d out inh_gnd inh_vdd 
@@ -193,16 +192,16 @@ subckt AOI211 A B C Q inh_gnd inh_vdd
 ends AOI211
 
 subckt nor2_core a b out inh_gnd inh_vdd 
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u pipi=kaki
-    MN1 (out b inh_gnd inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 pipi=kaki
-    MN2 (out a inh_gnd inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 pipi=kaki
-    MP1 (out a net17 inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 pipi=kaki
-    MP2 (net17 b inh_vdd inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 pipi=kaki
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd1=0
+    MN1 (out b inh_gnd inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd0=vthadd1
+    MN2 (out a inh_gnd inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd0=vthadd1
+    MP1 (out a net17 inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd0=vthadd1
+    MP2 (net17 b inh_vdd inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd0=vthadd1
 ends nor2_core
 
 subckt NOR21 A B Q inh_gnd inh_vdd 
-parameters  pipi=kaki
-    I1 (B A Q inh_gnd inh_vdd ) nor2_core  GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=1.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u pipi=kaki
+parameters  vthadd2=0
+    I1 (B A Q inh_gnd inh_vdd ) nor2_core  GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=1.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u vthadd1=vthadd2
 ends NOR21
 
 subckt oai21_core a b c out inh_gnd inh_vdd 
@@ -260,18 +259,18 @@ subckt OAI211 A B C Q inh_gnd inh_vdd
 ends OAI211
 
 subckt nor3_core a b c out inh_gnd inh_vdd 
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u pipi=kaki
-    MN1 (out a inh_gnd inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 pipi=kaki
-    MN3 (out c inh_gnd inh_gnd ) modn  w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 pipi=kaki
-    MN2 (out b inh_gnd inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 pipi=kaki
-    MP3 (net18 c inh_vdd inh_vdd ) modp  w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 pipi=kaki
-    MP1 (out a net22 inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 pipi=kaki
-    MP2 (net22 b net18 inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 pipi=kaki
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd1=0
+    MN1 (out a inh_gnd inh_gnd ) modn  w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd0=vthadd1
+    MN3 (out c inh_gnd inh_gnd ) modn  w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd0=vthadd1
+    MN2 (out b inh_gnd inh_gnd ) modn  w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd0=vthadd1
+    MP3 (net18 c inh_vdd inh_vdd ) modp  w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd0=vthadd1
+    MP1 (out a net22 inh_vdd ) modp  w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd0=vthadd1
+    MP2 (net22 b net18 inh_vdd ) modp  w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd0=vthadd1
 ends nor3_core
 
 subckt NOR31 A B C Q inh_gnd inh_vdd 
-parameters  pipi=kaki
-    I1 (A B C Q inh_gnd inh_vdd ) nor3_core  GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=1.00u GT_MN3L=0.35u GT_MN2W=1.00u GT_MN2L=0.35u GT_MP3W=4.80u GT_MP3L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u pipi=kaki
+parameters  vthadd2=0
+    I1 (A B C Q inh_gnd inh_vdd ) nor3_core  GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=1.00u GT_MN3L=0.35u GT_MN2W=1.00u GT_MN2L=0.35u GT_MP3W=4.80u GT_MP3L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u vthadd1=vthadd2
 ends NOR31
 
 subckt BUF6 A Q inh_gnd inh_vdd 
@@ -949,7 +948,7 @@ subckt NOR41 A B C D Q inh_gnd inh_vdd
 ends NOR41
 
 subckt sbox_1 m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> c\<7\> c\<6\> c\<5\> c\<4\> c\<3\> c\<2\> c\<1\> c\<0\> clk rst inh_gnd inh_vdd 
-parameters  pipi=kaki
+parameters  vthadd4=0
     reg_reg\[7\] (clk n_606 c\<7\> UNCONNECTED14 n_0 inh_gnd inh_vdd ) DFC3 
     reg_reg\[6\] (clk n_652 c\<6\> UNCONNECTED13 n_0 inh_gnd inh_vdd ) DFC3 
     reg_reg\[5\] (clk n_623 c\<5\> UNCONNECTED12 n_0 inh_gnd inh_vdd ) DFC3 
@@ -1140,7 +1139,7 @@ parameters  pipi=kaki
     g50932 (n_84 n_83 inh_gnd inh_vdd ) INV2 
     g50724 (n_271 n_270 inh_gnd inh_vdd ) INV2 
     g50838 (n_162 n_161 inh_gnd inh_vdd ) INV2 
-    g50717 (n_249 n_295 inh_gnd inh_vdd ) INV2  pipi=kaki
+    g50717 (n_249 n_295 inh_gnd inh_vdd ) INV2  vthadd2=99
     g50781 (n_203 n_204 inh_gnd inh_vdd ) INV2 
     g50779 (n_215 n_214 inh_gnd inh_vdd ) INV2 
     g50835 (n_173 n_174 inh_gnd inh_vdd ) INV2 
@@ -1173,7 +1172,7 @@ parameters  pipi=kaki
     g50548 (n_467 n_471 inh_gnd inh_vdd ) INV2 
     g50725 (n_266 n_265 inh_gnd inh_vdd ) INV2 
     g50771 (n_246 n_247 inh_gnd inh_vdd ) INV2 
-    g50664 (n_339 n_338 inh_gnd inh_vdd ) INV2  pipi=kaki
+    g50664 (n_339 n_338 inh_gnd inh_vdd ) INV2  vthadd2=99
     g50600 (n_413 n_414 inh_gnd inh_vdd ) INV2 
     g50632 (n_384 n_385 inh_gnd inh_vdd ) INV2 
     g50598 (n_418 n_419 inh_gnd inh_vdd ) INV2 
@@ -1499,7 +1498,7 @@ parameters  pipi=kaki
     g50510__4547 (n_443 n_504 n_509 inh_gnd inh_vdd ) NOR21 
     g50852__5953 (n_79 n_68 n_123 inh_gnd inh_vdd ) NOR21 
     g50788__5019 (n_108 n_106 n_246 inh_gnd inh_vdd ) NOR21 
-    g50675__1840 (n_79 n_207 n_312 inh_gnd inh_vdd ) NOR21  pipi=kaki
+    g50675__1840 (n_79 n_207 n_312 inh_gnd inh_vdd ) NOR21  vthadd2=99
     g50684__9682 (n_36 n_234 n_354 inh_gnd inh_vdd ) NOR21 
     g50707__8780 (n_36 n_239 n_323 inh_gnd inh_vdd ) NOR21 
     g50794__1474 (n_104 n_76 n_239 inh_gnd inh_vdd ) NOR21 
@@ -1598,7 +1597,7 @@ subckt BUF2 A Q inh_gnd inh_vdd
 ends BUF2
 
 subckt sbox_2 m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> c\<7\> c\<6\> c\<5\> c\<4\> c\<3\> c\<2\> c\<1\> c\<0\> clk rst inh_gnd inh_vdd 
-parameters  pipi=kaki
+parameters  vthadd4=0
     reg_reg\[1\] (clk n_615 c\<1\> UNCONNECTED16 n_0 inh_gnd inh_vdd ) DFC3 
     reg_reg\[4\] (clk n_625 c\<4\> UNCONNECTED19 n_0 inh_gnd inh_vdd ) DFC3 
     reg_reg\[6\] (clk n_652 c\<6\> UNCONNECTED21 n_0 inh_gnd inh_vdd ) DFC3 
@@ -1754,7 +1753,7 @@ parameters  pipi=kaki
     g51001 (n_12 n_5 n_21 inh_gnd inh_vdd ) NAND22 
     g50951 (n_43 n_17 n_78 inh_gnd inh_vdd ) NAND22 
     g50977 (n_23 FE_OFN3_n_10 n_46 inh_gnd inh_vdd ) NAND22 
-    g50992 (n_8 n_11 n_30 inh_gnd inh_vdd ) NAND22  pipi=kaki
+    g50992 (n_8 n_11 n_30 inh_gnd inh_vdd ) NAND22  vthadd2=99
     g50945 (n_43 n_32 n_90 inh_gnd inh_vdd ) NAND22 
     g50990 (n_12 n_6 n_33 inh_gnd inh_vdd ) NAND22 
     g50967 (n_34 FE_OFN3_n_10 n_56 inh_gnd inh_vdd ) NAND22 
@@ -1901,7 +1900,7 @@ parameters  pipi=kaki
     g50395__1474 (n_335 n_410 n_465 n_611 n_621 inh_gnd inh_vdd ) NOR40 
     g50518 (n_275 n_407 n_377 n_487 n_501 inh_gnd inh_vdd ) NOR40 
     g50506 (n_275 n_264 n_276 n_495 n_513 inh_gnd inh_vdd ) NOR40 
-    g51021 (n_201 n_141 n_149 n_649 inh_gnd inh_vdd ) NOR31  pipi=kaki
+    g51021 (n_201 n_141 n_149 n_649 inh_gnd inh_vdd ) NOR31  vthadd2=99
     g50682 (n_73 n_82 n_118 n_356 inh_gnd inh_vdd ) NOR31 
     g50537 (n_472 n_417 n_238 n_482 inh_gnd inh_vdd ) NOR31 
     g50642 (n_126 n_200 n_219 n_367 inh_gnd inh_vdd ) NOR31 
@@ -2239,9 +2238,9 @@ parameters  pipi=kaki
     g50982 (n_15 FE_OFN2_n_2 n_40 inh_gnd inh_vdd ) NAND23 
 ends sbox_2
 sbox1 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut1\<7\> SboxOut1\<6\> SboxOut1\<5\> SboxOut1\<4\> SboxOut1\<3\> SboxOut1\<2\> SboxOut1\<1\> SboxOut1\<0\> clk FE_PHN7_rst 0 vdd! ) sbox 
-sbox2 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut2\<7\> SboxOut2\<6\> SboxOut2\<5\> SboxOut2\<4\> SboxOut2\<3\> SboxOut2\<2\> SboxOut2\<1\> SboxOut2\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_1  pipi=kaki
+sbox2 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut2\<7\> SboxOut2\<6\> SboxOut2\<5\> SboxOut2\<4\> SboxOut2\<3\> SboxOut2\<2\> SboxOut2\<1\> SboxOut2\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_1 
 FE_PHC7_rst (rst FE_PHN7_rst 0 vdd! ) CLKBU2 
-sbox3 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut3\<7\> SboxOut3\<6\> SboxOut3\<5\> SboxOut3\<4\> SboxOut3\<3\> SboxOut3\<2\> SboxOut3\<1\> SboxOut3\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_2  pipi=kaki
+sbox3 (m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> SboxOut3\<7\> SboxOut3\<6\> SboxOut3\<5\> SboxOut3\<4\> SboxOut3\<3\> SboxOut3\<2\> SboxOut3\<1\> SboxOut3\<0\> clk FE_PHN7_rst 0 vdd! ) sbox_2 
 g47 (n_0 c\<7\> 0 vdd! ) INV3 
 g45 (n_1 c\<6\> 0 vdd! ) INV3 
 g43 (n_2 c\<5\> 0 vdd! ) INV3 
@@ -2252,7 +2251,7 @@ g33 (n_6 c\<1\> 0 vdd! ) INV3
 g34 (n_7 c\<0\> 0 vdd! ) INV3 
 g48 (SboxOut3\<7\> SboxOut1\<7\> SboxOut2\<7\> n_0 0 vdd! ) NAND31 
 g46 (SboxOut3\<6\> SboxOut1\<6\> SboxOut2\<6\> n_1 0 vdd! ) NAND31 
-g44 (SboxOut3\<5\> SboxOut1\<5\> SboxOut2\<5\> n_2 0 vdd! ) NAND31  pipi=kaki
+g44 (SboxOut3\<5\> SboxOut1\<5\> SboxOut2\<5\> n_2 0 vdd! ) NAND31 
 g42 (SboxOut3\<4\> SboxOut1\<4\> SboxOut2\<4\> n_3 0 vdd! ) NAND31 
 g40 (SboxOut3\<3\> SboxOut1\<3\> SboxOut2\<3\> n_4 0 vdd! ) NAND31 
 g38 (SboxOut3\<2\> SboxOut1\<2\> SboxOut2\<2\> n_5 0 vdd! ) NAND31 
