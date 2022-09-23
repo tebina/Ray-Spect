@@ -41,8 +41,7 @@ def parse_netlist(file_string):
 
     # Handling nets
     net = identifier
-    nets = pp.Group(pp.OneOrMore(net('net') | line_break)).setResultsName('nets')
-
+    nets = pp.Group(pp.OneOrMore(net('net'))).setResultsName('nets')
     # Handling parameter definition line which always starts with "parameters" and ends with a line break
     parameters = pp.Group(pp.Keyword("parameters").suppress() + many_parameters).setResultsName(
         'parameters')
@@ -52,11 +51,11 @@ def parse_netlist(file_string):
     parent_instance = identifier
     instance = pp.Group(instance_name('name') + open_parenthesis + nets('nets') + close_parenthesis + parent_instance(
         'parent') + many_parameters + eol).setResultsName('instance')
-
+    instance.ignore("\\\n")
     # Sub-circuit description handling
     subcircuit_name = identifier
     subcircuit_end = pp.Keyword("ends").suppress()  # Circuit end statement
-    subcircuit_content = pp.Group(pp.ZeroOrMore(instance | eol)).setResultsName('subnetlist')
+    subcircuit_content = pp.Group(pp.ZeroOrMore(instance | eol | line_break)).setResultsName('subnetlist')
     subcircuit = pp.Group(
         # content matches ==> subckt <name> <nets> <eol>
         pp.Keyword("subckt").suppress() + subcircuit_name('name') + nets('pins') + eol
@@ -93,6 +92,7 @@ def handle_subcircuit(token):
     parameters = sc.parameters
     pins = sc.pins
     s = rh.SubCircuit(name, pins, instances, parameters)
+    print (s)
     return [s]
 
 

@@ -15,9 +15,9 @@ ends clinva_core
 // Cell name: inv_core
 // View name: schematic
 subckt inv_core in out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=0.35u GT_MP1L=0.35u vthadd1=10
-    MN1 (out in inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd1
-    MP1 (out in inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd1
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=0.35u GT_MP1L=0.35u
+    MN1 (out in inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MP1 (out in inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
 ends inv_core
 // End of subcircuit definition.
 
@@ -100,8 +100,7 @@ ends NAND41
 // Cell name: INV2
 // View name: cmos_sch
 subckt INV2 A Q inh_gnd inh_vdd
-parameters vthadd2=2
-    I3 (A Q inh_gnd inh_vdd) inv_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=3.20u GT_MP1L=0.35u vthadd1=vthadd2
+    I3 (A Q inh_gnd inh_vdd) inv_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=3.20u GT_MP1L=0.35u
 ends INV2
 // End of subcircuit definition.
 
@@ -552,21 +551,21 @@ subckt sbox m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\
     g51006 (n_10 n_9 inh_gnd inh_vdd) INV2
     g50845 (n_139 n_140 inh_gnd inh_vdd) INV2
     g50932 (n_84 n_83 inh_gnd inh_vdd) INV2
-    g50724 (n_271 n_270 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50718 (n_292 n_293 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50838 (n_162 n_161 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50849 (n_130 n_129 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50548 (n_467 n_471 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50779 (n_215 n_214 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50835 (n_173 n_174 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50776 (n_223 n_222 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50782 (n_195 n_194 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50840 (n_158 n_157 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50847 (n_136 n_135 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50509 (n_508 n_510 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50723 (n_273 n_272 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50666 (n_330 n_329 inh_gnd inh_vdd) INV2 vthadd2=30 
-    g50837 (n_166 n_165 inh_gnd inh_vdd) INV2 vthadd2=30 
+    g50724 (n_271 n_270 inh_gnd inh_vdd) INV2
+    g50718 (n_292 n_293 inh_gnd inh_vdd) INV2
+    g50838 (n_162 n_161 inh_gnd inh_vdd) INV2
+    g50849 (n_130 n_129 inh_gnd inh_vdd) INV2
+    g50548 (n_467 n_471 inh_gnd inh_vdd) INV2
+    g50779 (n_215 n_214 inh_gnd inh_vdd) INV2
+    g50835 (n_173 n_174 inh_gnd inh_vdd) INV2
+    g50776 (n_223 n_222 inh_gnd inh_vdd) INV2
+    g50782 (n_195 n_194 inh_gnd inh_vdd) INV2
+    g50840 (n_158 n_157 inh_gnd inh_vdd) INV2
+    g50847 (n_136 n_135 inh_gnd inh_vdd) INV2
+    g50509 (n_508 n_510 inh_gnd inh_vdd) INV2
+    g50723 (n_273 n_272 inh_gnd inh_vdd) INV2
+    g50666 (n_330 n_329 inh_gnd inh_vdd) INV2
+    g50837 (n_166 n_165 inh_gnd inh_vdd) INV2
     g50778 (n_219 n_218 inh_gnd inh_vdd) INV2
     g50839 (n_160 n_159 inh_gnd inh_vdd) INV2
     g50772 (n_242 n_243 inh_gnd inh_vdd) INV2
