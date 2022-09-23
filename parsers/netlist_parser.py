@@ -92,7 +92,6 @@ def handle_subcircuit(token):
     parameters = sc.parameters
     pins = sc.pins
     s = rh.SubCircuit(name, pins, instances, parameters)
-    print (s)
     return [s]
 
 

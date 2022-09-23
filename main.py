@@ -1,7 +1,7 @@
 from parsers.netlist_parser import *
 from utils.propagate_param import PropagateParam as pp
 
-file = open('netlist/other_new_netlist', 'r')
+file = open('netlist/netlist', 'r')
 sample = file.read()
 parsed_netlist = parse_netlist(sample)
 
