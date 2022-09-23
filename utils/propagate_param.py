@@ -49,6 +49,12 @@ class PropagateParam:
                                     instance.many_parameters[
                                         self.parameter + str(reverse_depth[component.name] - 1)] = self.parameter + str(
                                         reverse_depth[component.name])
+                    if component.typeof == "top_instance":
+                        if component.visited is False:
+                            if component.name == edge[0]:
+                                component.parameters[
+                                    self.parameter + str(reverse_depth[component.name] - 1)] = str(self.value)
+                                component.visited = True
         return self.netlist_buffer
 
     def generate_netlist(self):
