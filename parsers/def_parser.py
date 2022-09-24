@@ -48,10 +48,12 @@ def parse_def(file_string):
     return components.parseString(file_string)
 
 
-file = open('../netlist/sboxTOP.def', 'r')
+file = open('netlist/sboxTOP.def', 'r')
 sample = file.read()
 parsed_def = parse_def(sample)
 
 f = open("components", "w")
-f.write(str(parsed_def[1]))
+for i in range(len(str(parse_def))):
+
+    f.writelines(str(parsed_def[i].coordinates)+'\n')
 f.close()
