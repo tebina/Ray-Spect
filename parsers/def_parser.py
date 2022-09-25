@@ -1,59 +1,30 @@
-import pyparsing as pp
+def extract_data(line):
+    line = line.lstrip("- ")
+    s = line.split(" ")
+    component_tuple = s[0].split("/") + [s[1]]
+    coordinates_tuple = line.split("(")[1].split(" ")[1:3]
+    return component_tuple, coordinates_tuple
 
 
-def parse_def(file_string):
-    # define a tabulation as a whitespace
-    ws = ' \t'
-    pp.ParserElement.setDefaultWhitespaceChars(ws)
-
-    # def file grammar
-    eol = pp.lineEnd().suppress()  # End of line
-    plus_sign = pp.Suppress("+")
-    minus_sign = pp.Suppress("-")
-    line_end = pp.Suppress(";" + pp.LineEnd())
-    open_parenthesis = pp.Suppress("(")
-    close_parenthesis = pp.Suppress(")")
-
-    identifier = pp.Word(pp.alphanums + '_!<>[]\\')
-    separator_slash = pp.Suppress("/")
-
-    number = pp.Word(pp.nums)
-
-    weight_expression = pp.Suppress("WEIGHT")
-    component_number = number
-
-    components_start = pp.Keyword("COMPONENTS").suppress() + component_number + line_end
-    components_end = pp.Keyword("END COMPONENTS").suppress()
-
-    component_type = pp.OneOrMore(identifier)
-    component_state = identifier
-    component_parent = identifier
-    component_coordinates = pp.OneOrMore(number).setResultsName('coordinates')
-    orientation = identifier
-    weight = number
-
-    component_path = pp.Group(pp.OneOrMore(identifier | separator_slash)).setResultsName('name')
-
-    component_definition = pp.Group(minus_sign + component_path + plus_sign + pp.Group(pp.ZeroOrMore(
-        component_type + plus_sign)) + component_state + open_parenthesis + component_coordinates + close_parenthesis +
-                                    orientation + pp.Group(pp.ZeroOrMore(plus_sign + weight_expression + weight) | eol))
-
-    all_components = pp.Group(
-        components_start + pp.OneOrMore(component_definition | line_end) + components_end
-    )
-    txt = pp.SkipTo(component_definition) | pp.SkipTo(pp.StringEnd(), include=True)
-
-    components = pp.ZeroOrMore(component_definition | pp.Suppress(txt))
-
-    return components.parseString(file_string)
+def prepare_data(file_string):
+    raw_strings = []
+    with open(file_string, 'r') as f:
+        for line in f:
+            if line.split(" ")[0] == "COMPONENTS":
+                for line in f:
+                    if line == " ;\n":
+                        continue
+                    if line == "END COMPONENTS\n":
+                        break
+                    raw_strings.append(line)
+    return raw_strings
 
 
-file = open('netlist/sboxTOP.def', 'r')
-sample = file.read()
-parsed_def = parse_def(sample)
+def def_parser(def_file):
+    components_data = []
+    raw_strings = prepare_data(def_file)
+    for raw_string in raw_strings:
+        components_data.append(extract_data(raw_string))
+    return components_data
 
-f = open("components", "w")
-for i in range(len(str(parse_def))):
 
-    f.writelines(str(parsed_def[i].coordinates)+'\n')
-f.close()
