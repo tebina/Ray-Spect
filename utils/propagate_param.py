@@ -2,6 +2,10 @@ from utils.generate_graph import GenerateGraph
 import jinja2
 
 
+def remove_duplicates(mylist):
+    return set(mylist)
+
+
 class PropagateParam:
 
     def __init__(self, parsed_netlist, starting_points, parameter, value):
@@ -15,11 +19,11 @@ class PropagateParam:
         depth = self.graph_instance.depth_dict(starting_node)
         return depth
 
-    def reverse_depth(self, depth_list):
-        iterable_list = list(depth_list.values())
-        reversed_list = [max(iterable_list) - x for x in iterable_list]
-        reversed_dict = dict(zip(depth_list.keys(), reversed_list))
-        return reversed_dict
+    def prepare_starting_points(self):
+        starting_points = []
+        for tuples in self.starting_points:
+            starting_points.append(tuples[0])
+        return starting_points
 
     def propagate_param(self):
         """
@@ -29,31 +33,28 @@ class PropagateParam:
         if the circuit has been visited already, and updates the parameter value if it has. Finally, it returns the
         modified netlist buffer.
         """
-        for tuples in self.starting_points:
-            path_tuples = self.graph_instance.find_path(tuples[0])
-            depth_list = self.depth_check(tuples[0])
-            reverse_depth = self.reverse_depth(depth_list)
+
+        starting_points = remove_duplicates(self.prepare_starting_points())
+        for node in starting_points:
+            path_tuples = self.graph_instance.find_path(node)
             for edge in path_tuples:
                 for component in self.netlist_buffer:
                     if component.typeof == "SubCircuit":
-                        if component.visited is False:
-                            if component.name == edge[0]:
-                                component.parameters += " " + self.parameter + str(reverse_depth[component.name]) + "=0"
-                                component.visited = True
+                        if component.visited is False and component.name == edge[0]:
+                            component.parameters += f" {self.parameter}=0"
+                            component.visited = True
                         if component.name == edge[0]:
                             for instance in component.instances:
                                 if instance.name == edge[1]:
                                     instance.many_parameters[
-                                        self.parameter + str(reverse_depth[component.name] - 2)] = str(self.value)
+                                        self.parameter] = self.value
                                 elif instance.parent == edge[1]:
                                     instance.many_parameters[
-                                        self.parameter + str(reverse_depth[component.name] - 1)] = self.parameter + str(
-                                        reverse_depth[component.name])
+                                        self.parameter] = self.parameter
                     if component.typeof == "top_instance":
                         if component.visited is False:
                             if component.name == edge[0]:
-                                component.parameters[
-                                    self.parameter + str(reverse_depth[component.name] - 1)] = str(self.value)
+                                component.parameters[self.parameter] = self.value
                                 component.visited = True
         return self.netlist_buffer
 

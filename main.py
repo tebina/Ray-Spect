@@ -15,5 +15,5 @@ for tuples in mytuples:
 
 
 print (len(new_target_instances))
-pp_obj = pp(parsed_netlist, new_target_instances[0:100], "vthadd", 90)
+pp_obj = pp(parsed_netlist, new_target_instances, "vthadd", 0.8)
 pp_obj.generate_netlist()

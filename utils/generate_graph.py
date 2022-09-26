@@ -1,6 +1,4 @@
 from typing import List
-
-from parsers.netlist_parser import parse_netlist
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -80,4 +78,3 @@ class GenerateGraph:
 
     def depth_dict(self, source):
         return nx.shortest_path_length(self.graph, source=source)
-
