@@ -6,11 +6,11 @@ subckt {{subcircuit.name}} {{" ".join(subcircuit.pins)}}
 parameters {{subcircuit.parameters}}
 {%- endif%}
 {%-for inst in subcircuit.instances %}
-    {{inst.name}} ({{" ".join(inst.nets)}}) {{inst.parent}} {% for keys, values in inst.many_parameters.items() %} {{keys}}={{values}}{% endfor %}
+    {{inst.name}} ({{" ".join(inst.nets)}}) {{inst.parent}}{% for keys, values in inst.many_parameters.items() %} {{keys}}={{values}}{% endfor %}
 {%- endfor %}
 ends {{subcircuit.name}}
 {%- endif%}
 {%- if subcircuit.typeof == "top_instance" %}
-{{subcircuit.name}} ({{" ".join(subcircuit.nets)}}) {{subcircuit.parent}} {% for keys, values in subcircuit.parameters.items() %} {{keys}}={{values}}{% endfor %}
+{{subcircuit.name}} ({{" ".join(subcircuit.nets)}}) {{subcircuit.parent}}{% for keys, values in subcircuit.parameters.items() %} {{keys}}={{values}}{% endfor %}
 {%- endif %}
 {%- endfor %}

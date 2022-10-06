@@ -58,7 +58,7 @@ class PropagateParam:
                                 component.visited = True
         return self.netlist_buffer
 
-    def generate_netlist(self):
+    def generate_netlist(self, generated_netlist_name):
         """
         Generate a netlist from the netlist buffer.
 
@@ -70,6 +70,6 @@ class PropagateParam:
         template_file = "templates/subcircuit_template.txt"
         template = template_env.get_template(template_file)
         output = template.render(parsed_netlist=self.propagate_param())
-        f = open("netlist/generated_netlist", "w")
+        f = open("netlist/"+generated_netlist_name, "w")
         f.write(output)
         f.close()
