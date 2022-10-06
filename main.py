@@ -1,14 +1,15 @@
 from parsers.netlist_parser import *
 from utils.propagate_param import PropagateParam as pp
 from utils.generate_graph import GenerateGraph as gg
-from parsers.def_parser import region_fetch
+from parsers.def_parser import DefParser
 
 file = open('netlist/netlist', 'r')
 sample = file.read()
 parsed_netlist = parse_netlist(sample)
 
-fetched_instances = region_fetch("netlist/sboxTOP.def", (150, 50), (250, 200))
+obj = DefParser("netlist/sboxTOP.def", (150, 50), (200, 60))
+fetched_instances = obj.region_fetch()
 
 
-# pp_obj = pp(parsed_netlist, fetched_instances, "vthadd", 1.0)
-# pp_obj.generate_netlist("netlist1")
+pp_obj = pp(parsed_netlist, fetched_instances, "vthadd", 1.0)
+pp_obj.generate_netlist("generated_netlist")

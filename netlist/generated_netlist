@@ -15,11 +15,11 @@ parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=0.35u GT_MP1L
 ends inv_core
 
 subckt nand2_core a b out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd=0
-    MN1 (out a net13 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN2 (net13 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP1 (out a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP2 (out b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN1 (out a net13 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN2 (net13 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP1 (out a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP2 (out b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends nand2_core
 
 subckt tgate_core en ep in out inh_gnd inh_vdd
@@ -29,9 +29,9 @@ parameters GT_MP1W=0.35u GT_MP1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L
 ends tgate_core
 
 subckt invb_core A Q inh_gnd inh_vdd
-parameters GT_MP2W=0.35u GT_MP2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u vthadd=0
-    MP2 (Q A inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
-    MN2 (Q A inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
+parameters GT_MP2W=0.35u GT_MP2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u
+    MP2 (Q A inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
+    MN2 (Q A inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
 ends invb_core
 
 subckt DFC3 C D Q QN RN inh_gnd inh_vdd
@@ -65,8 +65,7 @@ parameters  vthadd=0
 ends NAND31
 
 subckt NAND22 A B Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (A B Q inh_gnd inh_vdd) nand2_core GT_MN1W=4.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=4.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u vthadd=vthadd
+    I1 (A B Q inh_gnd inh_vdd) nand2_core GT_MN1W=4.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=4.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u
 ends NAND22
 
 subckt nand4_core a b c d out inh_gnd inh_vdd
@@ -87,62 +86,57 @@ parameters  vthadd=0
 ends NAND41
 
 subckt INV2 A Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I3 (A Q inh_gnd inh_vdd) inv_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=3.20u GT_MP1L=0.35u vthadd=vthadd
+    I3 (A Q inh_gnd inh_vdd) inv_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MP1W=3.20u GT_MP1L=0.35u
 ends INV2
 
 subckt nor4_core a b c d out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=0.35u GT_MN4L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u vthadd=0
-    MN1 (out a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN4 (out d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1 vthadd=vthadd
-    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MN2 (out b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP3 (net31 c net35 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
-    MP2 (net27 b net31 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
-    MP1 (out a net27 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP4 (net35 d inh_vdd inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1 vthadd=vthadd
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=0.35u GT_MN4L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u
+    MN1 (out a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN4 (out d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1
+    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MN2 (out b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP3 (net31 c net35 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
+    MP2 (net27 b net31 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
+    MP1 (out a net27 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP4 (net35 d inh_vdd inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1
 ends nor4_core
 
 subckt NOR40 A B C D Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I3 (D C B A Q inh_gnd inh_vdd) nor4_core GT_MN1W=0.50u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=0.50u GT_MN4L=0.35u GT_MN3W=0.50u GT_MN3L=0.35u GT_MN2W=0.50u GT_MN2L=0.35u GT_MP3W=3.20u GT_MP3L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP4W=3.20u GT_MP4L=0.35u vthadd=vthadd
+    I3 (D C B A Q inh_gnd inh_vdd) nor4_core GT_MN1W=0.50u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=0.50u GT_MN4L=0.35u GT_MN3W=0.50u GT_MN3L=0.35u GT_MN2W=0.50u GT_MN2L=0.35u GT_MP3W=3.20u GT_MP3L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP4W=3.20u GT_MP4L=0.35u
 ends NOR40
 
 subckt CLKIN3 A Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I3 (A Q inh_gnd inh_vdd) invb_core GT_MP2W=4.80u GT_MP2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=2.40u GT_MN2L=0.35u vthadd=vthadd
+    I3 (A Q inh_gnd inh_vdd) invb_core GT_MP2W=4.80u GT_MP2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=2.40u GT_MN2L=0.35u
 ends CLKIN3
 
 subckt aoi21_core a b c out inh_gnd inh_vdd
-parameters GT_MN2W=0.35u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u vthadd=0
-    MN2 (net14 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MN1 (out a net14 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MP1 (net18 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP2 (net18 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
-    MP3 (out c net18 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
+parameters GT_MN2W=0.35u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u
+    MN2 (net14 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MN1 (out a net14 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MP1 (net18 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP2 (net18 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
+    MP3 (out c net18 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
 ends aoi21_core
 
 subckt AOI211 A B C Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I3 (A B C Q inh_gnd inh_vdd) aoi21_core GT_MN2W=2.00u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=2.00u GT_MN1L=0.35u GT_MN3W=1.00u GT_MN3L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u GT_MP3W=3.20u GT_MP3L=0.35u vthadd=vthadd
+    I3 (A B C Q inh_gnd inh_vdd) aoi21_core GT_MN2W=2.00u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=2.00u GT_MN1L=0.35u GT_MN3W=1.00u GT_MN3L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u GT_MP3W=3.20u GT_MP3L=0.35u
 ends AOI211
 
 subckt aoi22_core a b c d out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MN4W=0.35u GT_MN4L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u vthadd=0
-    MN1 (out a net15 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN2 (net15 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MN3 (out c net7 inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MN4 (net7 d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1 vthadd=vthadd
-    MP1 (net23 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP2 (net23 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
-    MP4 (out d net23 inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1 vthadd=vthadd
-    MP3 (out c net23 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MN4W=0.35u GT_MN4L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u
+    MN1 (out a net15 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN2 (net15 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MN3 (out c net7 inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MN4 (net7 d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1
+    MP1 (net23 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP2 (net23 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
+    MP4 (out d net23 inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1
+    MP3 (out c net23 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
 ends aoi22_core
 
 subckt AOI221 A B C D Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I2 (A B C D Q inh_gnd inh_vdd) aoi22_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=2.00u GT_MN2L=0.35u GT_MN3W=2.00u GT_MN3L=0.35u GT_MN4W=2.00u GT_MN4L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u GT_MP4W=3.20u GT_MP4L=0.35u GT_MP3W=3.20u GT_MP3L=0.35u vthadd=vthadd
+    I2 (A B C D Q inh_gnd inh_vdd) aoi22_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=2.00u GT_MN2L=0.35u GT_MN3W=2.00u GT_MN3L=0.35u GT_MN4W=2.00u GT_MN4L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u GT_MP4W=3.20u GT_MP4L=0.35u GT_MP3W=3.20u GT_MP3L=0.35u
 ends AOI221
 
 subckt oai211_core a b c d out inh_gnd inh_vdd
@@ -168,31 +162,29 @@ parameters  vthadd=0
 ends INV3
 
 subckt oai21_core a b c out inh_gnd inh_vdd
-parameters GT_MN2W=0.35u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd=0
-    MN2 (net10 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MN1 (net10 a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN3 (out c net10 inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MP1 (out a net26 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP3 (out c inh_vdd inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
-    MP2 (net26 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
+parameters GT_MN2W=0.35u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L=0.35u GT_MN3W=0.35u GT_MN3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN2 (net10 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MN1 (net10 a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN3 (out c net10 inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MP1 (out a net26 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP3 (out c inh_vdd inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
+    MP2 (net26 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends oai21_core
 
 subckt OAI212 A B C Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (B A C Q inh_gnd inh_vdd) oai21_core GT_MN2W=3.70u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=3.70u GT_MN1L=0.35u GT_MN3W=4.05u GT_MN3L=0.35u GT_MP1W=6.40u GT_MP1L=0.35u GT_MP3W=3.25u GT_MP3L=0.35u GT_MP2W=6.40u GT_MP2L=0.35u vthadd=vthadd
+    I1 (B A C Q inh_gnd inh_vdd) oai21_core GT_MN2W=3.70u GT_MN2L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=3.70u GT_MN1L=0.35u GT_MN3W=4.05u GT_MN3L=0.35u GT_MP1W=6.40u GT_MP1L=0.35u GT_MP3W=3.25u GT_MP3L=0.35u GT_MP2W=6.40u GT_MP2L=0.35u
 ends OAI212
 
 subckt nor2_core a b out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd=0
-    MN1 (out b inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN2 (out a inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP1 (out a net17 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP2 (net17 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN1 (out b inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN2 (out a inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP1 (out a net17 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP2 (net17 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends nor2_core
 
 subckt NOR21 A B Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (B A Q inh_gnd inh_vdd) nor2_core GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=1.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u vthadd=vthadd
+    I1 (B A Q inh_gnd inh_vdd) nor2_core GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=1.00u GT_MN2L=0.35u GT_MP1W=3.20u GT_MP1L=0.35u GT_MP2W=3.20u GT_MP2L=0.35u
 ends NOR21
 
 subckt aoi31_core a b c d out inh_gnd inh_vdd
@@ -212,37 +204,35 @@ subckt AOI311 A B C D Q inh_gnd inh_vdd
 ends AOI311
 
 subckt aoi211_core a b c d out inh_gnd inh_vdd
-parameters GT_MN4W=0.35u GT_MN4L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN1W=0.35u GT_MN1L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u vthadd=0
-    MN4 (out d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1 vthadd=vthadd
-    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MN1 (out a net23 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN2 (net23 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP1 (net7 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP4 (out d net15 inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1 vthadd=vthadd
-    MP2 (net7 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
-    MP3 (net15 c net7 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
+parameters GT_MN4W=0.35u GT_MN4L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN1W=0.35u GT_MN1L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u
+    MN4 (out d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1
+    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MN1 (out a net23 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN2 (net23 b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP1 (net7 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP4 (out d net15 inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1
+    MP2 (net7 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
+    MP3 (net15 c net7 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
 ends aoi211_core
 
 subckt AOI2111 A B C D Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I2 (A B C D Q inh_gnd inh_vdd) aoi211_core GT_MN4W=1.00u GT_MN4L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=1.00u GT_MN3L=0.35u GT_MN1W=2.00u GT_MN1L=0.35u GT_MN2W=2.00u GT_MN2L=0.35u GT_MP1W=4.75u GT_MP1L=0.35u GT_MP4W=4.75u GT_MP4L=0.35u GT_MP2W=4.75u GT_MP2L=0.35u GT_MP3W=4.75u GT_MP3L=0.35u vthadd=vthadd
+    I2 (A B C D Q inh_gnd inh_vdd) aoi211_core GT_MN4W=1.00u GT_MN4L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=1.00u GT_MN3L=0.35u GT_MN1W=2.00u GT_MN1L=0.35u GT_MN2W=2.00u GT_MN2L=0.35u GT_MP1W=4.75u GT_MP1L=0.35u GT_MP4W=4.75u GT_MP4L=0.35u GT_MP2W=4.75u GT_MP2L=0.35u GT_MP3W=4.75u GT_MP3L=0.35u
 ends AOI2111
 
 subckt oai31_core a b c d out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=0.35u GT_MN4L=0.35u GT_MN7W=0.35u GT_MN7L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd=0
-    MN1 (net35 a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN4 (net35 b inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1 vthadd=vthadd
-    MN7 (net35 c inh_gnd inh_gnd) modn w=GT_MN7W l=GT_MN7L as=sx*(GT_MN7W) ad=sx*(GT_MN7W) ps=2*sx+(GT_MN7W) pd=2*sx+(GT_MN7W) nrd=lc/(GT_MN7W) nrs=lc/(GT_MN7W) ng=1 vthadd=vthadd
-    MN2 (out d net35 inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP4 (out d inh_vdd inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1 vthadd=vthadd
-    MP1 (net7 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP3 (out c net11 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
-    MP2 (net11 b net7 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=0.35u GT_MN4L=0.35u GT_MN7W=0.35u GT_MN7L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN1 (net35 a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN4 (net35 b inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1
+    MN7 (net35 c inh_gnd inh_gnd) modn w=GT_MN7W l=GT_MN7L as=sx*(GT_MN7W) ad=sx*(GT_MN7W) ps=2*sx+(GT_MN7W) pd=2*sx+(GT_MN7W) nrd=lc/(GT_MN7W) nrs=lc/(GT_MN7W) ng=1
+    MN2 (out d net35 inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP4 (out d inh_vdd inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1
+    MP1 (net7 a inh_vdd inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP3 (out c net11 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
+    MP2 (net11 b net7 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends oai31_core
 
 subckt OAI311 A B C D Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (A B C D Q inh_gnd inh_vdd) oai31_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=2.00u GT_MN4L=0.35u GT_MN7W=2.00u GT_MN7L=0.35u GT_MN2W=2.00u GT_MN2L=0.35u GT_MP4W=1.60u GT_MP4L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP3W=4.80u GT_MP3L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u vthadd=vthadd
+    I1 (A B C D Q inh_gnd inh_vdd) oai31_core GT_MN1W=2.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN4W=2.00u GT_MN4L=0.35u GT_MN7W=2.00u GT_MN7L=0.35u GT_MN2W=2.00u GT_MN2L=0.35u GT_MP4W=1.60u GT_MP4L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP3W=4.80u GT_MP3L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u
 ends OAI311
 
 subckt OAI211 A B C Q inh_gnd inh_vdd
@@ -250,35 +240,33 @@ subckt OAI211 A B C Q inh_gnd inh_vdd
 ends OAI211
 
 subckt nor3_core a b c out inh_gnd inh_vdd
-parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd=0
-    MN1 (out a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MN2 (out b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP3 (net18 c inh_vdd inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
-    MP1 (out a net22 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP2 (net22 b net18 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
+parameters GT_MN1W=0.35u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=0.35u GT_MN3L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN1 (out a inh_gnd inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN3 (out c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MN2 (out b inh_gnd inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP3 (net18 c inh_vdd inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
+    MP1 (out a net22 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP2 (net22 b net18 inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends nor3_core
 
 subckt NOR31 A B C Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (A B C Q inh_gnd inh_vdd) nor3_core GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=1.00u GT_MN3L=0.35u GT_MN2W=1.00u GT_MN2L=0.35u GT_MP3W=4.80u GT_MP3L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u vthadd=vthadd
+    I1 (A B C Q inh_gnd inh_vdd) nor3_core GT_MN1W=1.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN3W=1.00u GT_MN3L=0.35u GT_MN2W=1.00u GT_MN2L=0.35u GT_MP3W=4.80u GT_MP3L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u
 ends NOR31
 
 subckt oai22_core a b c d out inh_gnd inh_vdd
-parameters GT_MN3W=0.35u GT_MN3L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L=0.35u GT_MN4W=0.35u GT_MN4L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u vthadd=0
-    MN3 (net27 c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1 vthadd=vthadd
-    MN1 (out a net27 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1 vthadd=vthadd
-    MN4 (net27 d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1 vthadd=vthadd
-    MN2 (out b net27 inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1 vthadd=vthadd
-    MP4 (net15 d inh_vdd inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1 vthadd=vthadd
-    MP3 (out c net15 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1 vthadd=vthadd
-    MP1 (out a net11 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1 vthadd=vthadd
-    MP2 (net11 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1 vthadd=vthadd
+parameters GT_MN3W=0.35u GT_MN3L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=0.35u GT_MN1L=0.35u GT_MN4W=0.35u GT_MN4L=0.35u GT_MN2W=0.35u GT_MN2L=0.35u GT_MP4W=0.35u GT_MP4L=0.35u GT_MP3W=0.35u GT_MP3L=0.35u GT_MP1W=0.35u GT_MP1L=0.35u GT_MP2W=0.35u GT_MP2L=0.35u
+    MN3 (net27 c inh_gnd inh_gnd) modn w=GT_MN3W l=GT_MN3L as=sx*(GT_MN3W) ad=sx*(GT_MN3W) ps=2*sx+(GT_MN3W) pd=2*sx+(GT_MN3W) nrd=lc/(GT_MN3W) nrs=lc/(GT_MN3W) ng=1
+    MN1 (out a net27 inh_gnd) modn w=GT_MN1W l=GT_MN1L as=sx*(GT_MN1W) ad=sx*(GT_MN1W) ps=2*sx+(GT_MN1W) pd=2*sx+(GT_MN1W) nrd=lc/(GT_MN1W) nrs=lc/(GT_MN1W) ng=1
+    MN4 (net27 d inh_gnd inh_gnd) modn w=GT_MN4W l=GT_MN4L as=sx*(GT_MN4W) ad=sx*(GT_MN4W) ps=2*sx+(GT_MN4W) pd=2*sx+(GT_MN4W) nrd=lc/(GT_MN4W) nrs=lc/(GT_MN4W) ng=1
+    MN2 (out b net27 inh_gnd) modn w=GT_MN2W l=GT_MN2L as=sx*(GT_MN2W) ad=sx*(GT_MN2W) ps=2*sx+(GT_MN2W) pd=2*sx+(GT_MN2W) nrd=lc/(GT_MN2W) nrs=lc/(GT_MN2W) ng=1
+    MP4 (net15 d inh_vdd inh_vdd) modp w=GT_MP4W l=GT_MP4L as=sx*(GT_MP4W) ad=sx*(GT_MP4W) ps=2*sx+(GT_MP4W) pd=2*sx+(GT_MP4W) nrd=lc/(GT_MP4W) nrs=lc/(GT_MP4W) ng=1
+    MP3 (out c net15 inh_vdd) modp w=GT_MP3W l=GT_MP3L as=sx*(GT_MP3W) ad=sx*(GT_MP3W) ps=2*sx+(GT_MP3W) pd=2*sx+(GT_MP3W) nrd=lc/(GT_MP3W) nrs=lc/(GT_MP3W) ng=1
+    MP1 (out a net11 inh_vdd) modp w=GT_MP1W l=GT_MP1L as=sx*(GT_MP1W) ad=sx*(GT_MP1W) ps=2*sx+(GT_MP1W) pd=2*sx+(GT_MP1W) nrd=lc/(GT_MP1W) nrs=lc/(GT_MP1W) ng=1
+    MP2 (net11 b inh_vdd inh_vdd) modp w=GT_MP2W l=GT_MP2L as=sx*(GT_MP2W) ad=sx*(GT_MP2W) ps=2*sx+(GT_MP2W) pd=2*sx+(GT_MP2W) nrd=lc/(GT_MP2W) nrs=lc/(GT_MP2W) ng=1
 ends oai22_core
 
 subckt OAI222 A B C D Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (A B C D Q inh_gnd inh_vdd) oai22_core GT_MN3W=3.70u GT_MN3L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=4.05u GT_MN1L=0.35u GT_MN4W=3.65u GT_MN4L=0.35u GT_MN2W=3.65u GT_MN2L=0.35u GT_MP4W=6.10u GT_MP4L=0.35u GT_MP3W=6.45u GT_MP3L=0.35u GT_MP1W=6.35u GT_MP1L=0.35u GT_MP2W=6.35u GT_MP2L=0.35u vthadd=vthadd
+    I1 (A B C D Q inh_gnd inh_vdd) oai22_core GT_MN3W=3.70u GT_MN3L=0.35u sx=8.5e-07 lc=5e-07 GT_MN1W=4.05u GT_MN1L=0.35u GT_MN4W=3.65u GT_MN4L=0.35u GT_MN2W=3.65u GT_MN2L=0.35u GT_MP4W=6.10u GT_MP4L=0.35u GT_MP3W=6.45u GT_MP3L=0.35u GT_MP1W=6.35u GT_MP1L=0.35u GT_MP2W=6.35u GT_MP2L=0.35u
 ends OAI222
 
 subckt NOR41 A B C D Q inh_gnd inh_vdd
@@ -304,13 +292,11 @@ subckt CLKBU4 A Q inh_gnd inh_vdd
 ends CLKBU4
 
 subckt NOR23 A B Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (B A Q inh_gnd inh_vdd) nor2_core GT_MN1W=3.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=3.00u GT_MN2L=0.35u GT_MP1W=9.60u GT_MP1L=0.35u GT_MP2W=9.60u GT_MP2L=0.35u vthadd=vthadd
+    I1 (B A Q inh_gnd inh_vdd) nor2_core GT_MN1W=3.00u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=3.00u GT_MN2L=0.35u GT_MP1W=9.60u GT_MP1L=0.35u GT_MP2W=9.60u GT_MP2L=0.35u
 ends NOR23
 
 subckt NAND23 A B Q inh_gnd inh_vdd
-parameters  vthadd=0
-    I1 (A B Q inh_gnd inh_vdd) nand2_core GT_MN1W=5.97u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=6.00u GT_MN2L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u vthadd=vthadd
+    I1 (A B Q inh_gnd inh_vdd) nand2_core GT_MN1W=5.97u GT_MN1L=0.35u sx=8.5e-07 lc=5e-07 GT_MN2W=6.00u GT_MN2L=0.35u GT_MP1W=4.80u GT_MP1L=0.35u GT_MP2W=4.80u GT_MP2L=0.35u
 ends NAND23
 
 subckt sbox2 m\<7\> m\<6\> m\<5\> m\<4\> m\<3\> m\<2\> m\<1\> m\<0\> k\<7\> k\<6\> k\<5\> k\<4\> k\<3\> k\<2\> k\<1\> k\<0\> c\<7\> c\<6\> c\<5\> c\<4\> c\<3\> c\<2\> c\<1\> c\<0\> clk rst inh_gnd inh_vdd
@@ -328,14 +314,14 @@ parameters  vthadd=0
     g50672__2703 (n_64 n_105 n_80 n_315 inh_gnd inh_vdd) NAND31
     g50526__2250 (n_482 n_344 n_156 n_493 inh_gnd inh_vdd) NAND31
     g51022__5795 (n_651 n_647 n_331 n_652 inh_gnd inh_vdd) NAND31
-    g50524__7114 (n_492 n_320 n_220 n_495 inh_gnd inh_vdd) NAND31 vthadd=1.0
+    g50524__7114 (n_492 n_320 n_220 n_495 inh_gnd inh_vdd) NAND31
     g50437__1840 (n_578 n_320 n_166 n_582 inh_gnd inh_vdd) NAND31 vthadd=1.0
     g50508__1474 (n_509 n_477 n_452 n_511 inh_gnd inh_vdd) NAND31
     g50481__6877 (n_529 n_463 n_299 n_538 inh_gnd inh_vdd) NAND31
     g50497__2703 (n_514 n_328 n_324 n_522 inh_gnd inh_vdd) NAND31
     g50418__2683 (n_597 n_328 n_331 n_601 inh_gnd inh_vdd) NAND31
     g50465__7344 (n_547 n_328 n_331 n_554 inh_gnd inh_vdd) NAND31
-    g50477__9682 (n_535 n_408 n_380 n_542 inh_gnd inh_vdd) NAND31 vthadd=1.0
+    g50477__9682 (n_535 n_408 n_380 n_542 inh_gnd inh_vdd) NAND31
     g50411__4296 (n_605 n_406 n_271 n_608 inh_gnd inh_vdd) NAND31
     g50413__1474 (n_599 n_131 n_127 n_606 inh_gnd inh_vdd) NAND31
     g50899__2683 (n_78 n_97 n_126 inh_gnd inh_vdd) NAND22
@@ -373,58 +359,58 @@ parameters  vthadd=0
     g50897__4547 (n_50 n_111 n_128 inh_gnd inh_vdd) NAND22
     g50556__2250 (n_441 n_169 n_465 inh_gnd inh_vdd) NAND22
     g50797__2683 (n_96 n_52 n_236 inh_gnd inh_vdd) NAND22
-    g50875__2391 (n_70 n_48 n_162 inh_gnd inh_vdd) NAND22 vthadd=1.0
-    g50576__6877 (n_366 n_292 n_446 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50875__2391 (n_70 n_48 n_162 inh_gnd inh_vdd) NAND22
+    g50576__6877 (n_366 n_292 n_446 inh_gnd inh_vdd) NAND22
     g50829__2391 (n_92 n_80 n_195 inh_gnd inh_vdd) NAND22
     g50693__1786 (n_194 n_105 n_343 inh_gnd inh_vdd) NAND22
     g50877__7118 (n_63 n_50 n_158 inh_gnd inh_vdd) NAND22
     g50898__9682 (n_50 n_82 n_127 inh_gnd inh_vdd) NAND22
     g50895__3772 (n_63 n_54 n_131 inh_gnd inh_vdd) NAND22
-    g50870__9682 (n_38 n_96 n_169 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50870__9682 (n_38 n_96 n_169 inh_gnd inh_vdd) NAND22
     g50871__2683 (n_96 n_54 n_167 inh_gnd inh_vdd) NAND22
     g50825__2683 (n_48 n_96 n_199 inh_gnd inh_vdd) NAND22
     g50869__4547 (n_63 n_35 n_170 inh_gnd inh_vdd) NAND22
     g50868__1474 (n_39 n_100 n_171 inh_gnd inh_vdd) NAND22
     g50832__8757 (n_112 n_52 n_189 inh_gnd inh_vdd) NAND22
-    g50535__9906 (n_481 n_453 n_484 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50535__9906 (n_481 n_453 n_484 inh_gnd inh_vdd) NAND22
     g50812__2703 (n_115 n_25 n_215 inh_gnd inh_vdd) NAND22
     g50686__1309 (n_229 n_215 n_351 inh_gnd inh_vdd) NAND22
     g50813__5795 (n_105 n_69 n_212 inh_gnd inh_vdd) NAND22
-    g50857__6083 (n_64 n_69 n_184 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50857__6083 (n_64 n_69 n_184 inh_gnd inh_vdd) NAND22
     g50892__9906 (n_101 n_41 n_136 inh_gnd inh_vdd) NAND22
-    g50872__1309 (n_48 n_101 n_166 inh_gnd inh_vdd) NAND22 vthadd=1.0
-    g50701__5795 (n_179 n_128 n_332 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50872__1309 (n_48 n_101 n_166 inh_gnd inh_vdd) NAND22
+    g50701__5795 (n_179 n_128 n_332 inh_gnd inh_vdd) NAND22
     g50811__6083 (n_115 n_39 n_216 inh_gnd inh_vdd) NAND22
     g50884__2250 (n_79 n_41 n_148 inh_gnd inh_vdd) NAND22
     g50881__5703 (n_39 n_86 n_151 inh_gnd inh_vdd) NAND22
     g50878__8757 (n_86 n_54 n_156 inh_gnd inh_vdd) NAND22
     g50692__8757 (n_242 n_54 n_344 inh_gnd inh_vdd) NAND22
     g50791__8780 (n_109 n_61 n_242 inh_gnd inh_vdd) NAND22
-    g50789__1857 (n_109 n_95 n_245 inh_gnd inh_vdd) NAND22 vthadd=1.0
-    g50828__2900 (n_50 n_104 n_196 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50789__1857 (n_109 n_95 n_245 inh_gnd inh_vdd) NAND22
+    g50828__2900 (n_50 n_104 n_196 inh_gnd inh_vdd) NAND22
     g50803__7118 (n_107 n_113 n_227 inh_gnd inh_vdd) NAND22
     g50824__9682 (n_60 n_113 n_200 inh_gnd inh_vdd) NAND22
     g50891__1857 (n_78 n_88 n_138 inh_gnd inh_vdd) NAND22
-    g50502__5019 (n_513 n_436 n_517 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50502__5019 (n_513 n_436 n_517 inh_gnd inh_vdd) NAND22
     g50856__2250 (n_72 n_60 n_185 inh_gnd inh_vdd) NAND22
     g50605__9906 (n_181 n_356 n_401 inh_gnd inh_vdd) NAND22
-    g50627__2703 (n_345 n_166 n_404 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50627__2703 (n_345 n_166 n_404 inh_gnd inh_vdd) NAND22
     g50801__2391 (n_72 n_103 n_230 inh_gnd inh_vdd) NAND22
-    g50785__5795 (n_72 n_114 n_188 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50785__5795 (n_72 n_114 n_188 inh_gnd inh_vdd) NAND22
     g50703__1840 (n_221 FE_OFN1_n_2 n_330 inh_gnd inh_vdd) NAND22
-    g50710__1474 (n_198 n_38 n_320 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50710__1474 (n_198 n_38 n_320 inh_gnd inh_vdd) NAND22
     g50808__7114 (n_118 n_25 n_220 inh_gnd inh_vdd) NAND22
     g50796__9682 (n_107 n_92 n_237 inh_gnd inh_vdd) NAND22
     g50569__4296 (n_413 n_252 n_455 inh_gnd inh_vdd) NAND22
-    g50809__5266 (n_65 n_99 n_219 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50809__5266 (n_65 n_99 n_219 inh_gnd inh_vdd) NAND22
     g50679__8780 (n_164 n_75 n_308 inh_gnd inh_vdd) NAND22
     g50826__1309 (n_119 n_117 n_198 inh_gnd inh_vdd) NAND22
-    g50854__7114 (n_65 n_83 n_121 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50854__7114 (n_65 n_83 n_121 inh_gnd inh_vdd) NAND22
     g50893__8780 (n_61 n_85 n_134 inh_gnd inh_vdd) NAND22
     g50678__9906 (n_133 n_69 n_309 inh_gnd inh_vdd) NAND22
     g50696__7114 (n_138 n_52 n_339 inh_gnd inh_vdd) NAND22
-    g50573__9682 (n_396 n_196 n_450 inh_gnd inh_vdd) NAND22 vthadd=1.0
-    g50691__7118 (n_244 n_1 n_345 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50573__9682 (n_396 n_196 n_450 inh_gnd inh_vdd) NAND22
+    g50691__7118 (n_244 n_1 n_345 inh_gnd inh_vdd) NAND22
     g50478__2683 (n_533 n_170 n_541 inh_gnd inh_vdd) NAND22
     g50851__1786 (n_72 n_110 n_124 inh_gnd inh_vdd) NAND22
     g50690__7675 (n_211 n_72 n_346 inh_gnd inh_vdd) NAND22
@@ -432,41 +418,41 @@ parameters  vthadd=0
     g50683__4547 (n_39 n_248 n_355 inh_gnd inh_vdd) NAND22
     g50702__7344 (n_48 n_248 n_331 inh_gnd inh_vdd) NAND22
     g50673__5795 (n_232 n_38 n_314 inh_gnd inh_vdd) NAND22
-    g50818__9906 (n_67 n_113 n_207 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50818__9906 (n_67 n_113 n_207 inh_gnd inh_vdd) NAND22
     g50787__1840 (n_105 n_113 n_248 inh_gnd inh_vdd) NAND22
-    g50514__6877 (n_499 n_379 n_505 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50514__6877 (n_499 n_379 n_505 inh_gnd inh_vdd) NAND22
     g50800__2900 (n_64 n_113 n_232 inh_gnd inh_vdd) NAND22
     g50799__6877 (n_93 n_88 n_233 inh_gnd inh_vdd) NAND22
     g50403__1840 (n_614 n_189 n_615 inh_gnd inh_vdd) NAND22
     g50793__3772 (n_91 n_54 n_240 inh_gnd inh_vdd) NAND22
     g50450__2900 (n_563 n_375 n_569 inh_gnd inh_vdd) NAND22
     g50865__8780 (n_90 n_88 n_175 inh_gnd inh_vdd) NAND22
-    g50882__7114 (n_90 n_110 n_150 inh_gnd inh_vdd) NAND22 vthadd=1.0
+    g50882__7114 (n_90 n_110 n_150 inh_gnd inh_vdd) NAND22
     g50504__9906 (n_502 n_445 n_333 n_322 n_515 inh_gnd inh_vdd) NAND41
     g50402__7344 (n_607 n_158 n_151 n_156 n_616 inh_gnd inh_vdd) NAND41
-    g50493__5266 (n_512 n_456 n_290 n_177 n_526 inh_gnd inh_vdd) NAND41 vthadd=1.0
-    g50443__3772 (n_567 n_456 n_405 n_320 n_576 inh_gnd inh_vdd) NAND41 vthadd=1.0
-    g50435__5795 (n_575 n_411 n_340 n_381 n_584 inh_gnd inh_vdd) NAND41 vthadd=1.0
-    g50417__9682 (n_592 n_162 n_144 n_217 n_602 inh_gnd inh_vdd) NAND41 vthadd=1.0
-    g50426__8757 (n_585 n_405 n_154 n_169 n_593 inh_gnd inh_vdd) NAND41 vthadd=1.0
+    g50493__5266 (n_512 n_456 n_290 n_177 n_526 inh_gnd inh_vdd) NAND41
+    g50443__3772 (n_567 n_456 n_405 n_320 n_576 inh_gnd inh_vdd) NAND41
+    g50435__5795 (n_575 n_411 n_340 n_381 n_584 inh_gnd inh_vdd) NAND41
+    g50417__9682 (n_592 n_162 n_144 n_217 n_602 inh_gnd inh_vdd) NAND41
+    g50426__8757 (n_585 n_405 n_154 n_169 n_593 inh_gnd inh_vdd) NAND41
     g50425__7118 (n_586 n_263 n_199 n_148 n_594 inh_gnd inh_vdd) NAND41
-    g50440__9906 (n_571 n_459 n_369 n_280 n_579 inh_gnd inh_vdd) NAND41 vthadd=1.0
+    g50440__9906 (n_571 n_459 n_369 n_280 n_579 inh_gnd inh_vdd) NAND41
     g50449__6877 (n_561 n_304 n_302 n_277 n_570 inh_gnd inh_vdd) NAND41
     g50532__1840 (n_470 n_452 n_339 n_348 n_487 inh_gnd inh_vdd) NAND41
     g50503__1857 (n_503 n_448 n_376 n_273 n_516 inh_gnd inh_vdd) NAND41
     g50442__4296 (n_568 n_339 n_196 n_128 n_577 inh_gnd inh_vdd) NAND41
     g50534__1857 (n_473 n_265 n_376 n_273 n_485 inh_gnd inh_vdd) NAND41
     g50530__5795 (n_478 n_383 n_352 n_330 n_489 inh_gnd inh_vdd) NAND41
-    g50461__2250 (n_548 n_411 n_412 n_345 n_558 inh_gnd inh_vdd) NAND41 vthadd=1.0
+    g50461__2250 (n_548 n_411 n_412 n_345 n_558 inh_gnd inh_vdd) NAND41
     g50483__2900 (n_528 n_475 n_385 n_236 n_536 inh_gnd inh_vdd) NAND41
     g50462__6083 (n_544 n_449 n_451 n_453 n_557 inh_gnd inh_vdd) NAND41 vthadd=1.0
     g50445__4547 (n_566 n_418 n_359 n_355 n_574 inh_gnd inh_vdd) NAND41
     g50519__8757 (n_486 n_159 n_146 n_216 n_500 inh_gnd inh_vdd) NAND41
     g50446__9682 (n_564 n_146 n_167 n_156 n_573 inh_gnd inh_vdd) NAND41
-    g50488__8757 (n_519 n_466 n_412 n_291 n_531 inh_gnd inh_vdd) NAND41 vthadd=1.0
+    g50488__8757 (n_519 n_466 n_412 n_291 n_531 inh_gnd inh_vdd) NAND41
     g50468__5019 (n_543 n_288 n_285 n_342 n_551 inh_gnd inh_vdd) NAND41
     g50423__7675 (n_587 n_466 n_383 n_285 n_596 inh_gnd inh_vdd) NAND41
-    g50562__1840 (n_381 n_171 n_182 n_216 n_461 inh_gnd inh_vdd) NAND41 vthadd=1.0
+    g50562__1840 (n_381 n_171 n_182 n_216 n_461 inh_gnd inh_vdd) NAND41
     g50540__4547 (n_424 n_393 n_299 n_314 n_479 inh_gnd inh_vdd) NAND41
     g50485__7675 (n_524 n_431 n_296 n_171 n_534 inh_gnd inh_vdd) NAND41
     g50454__8757 (n_556 n_458 n_429 n_287 n_565 inh_gnd inh_vdd) NAND41
@@ -488,12 +474,12 @@ parameters  vthadd=0
     g50391__5953 (n_621 n_436 n_131 n_189 n_625 inh_gnd inh_vdd) NAND41
     g50397__6083 (n_613 n_436 n_167 n_189 n_619 inh_gnd inh_vdd) NAND41
     g50390__1786 (n_620 n_196 n_131 n_128 n_626 inh_gnd inh_vdd) NAND41
-    g50844 (n_145 n_144 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50844 (n_145 n_144 inh_gnd inh_vdd) INV2
     g50850 (n_126 n_125 inh_gnd inh_vdd) INV2
     g50995 (n_23 n_24 inh_gnd inh_vdd) INV2
     g50931 (n_86 n_85 inh_gnd inh_vdd) INV2
-    g50930 (n_88 n_87 inh_gnd inh_vdd) INV2 vthadd=1.0
-    g50910 (n_96 n_95 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50930 (n_88 n_87 inh_gnd inh_vdd) INV2
+    g50910 (n_96 n_95 inh_gnd inh_vdd) INV2
     g50906 (n_104 n_103 inh_gnd inh_vdd) INV2
     g50902 (n_113 n_112 inh_gnd inh_vdd) INV2
     g51019 (rst n_0 inh_gnd inh_vdd) INV2
@@ -502,31 +488,31 @@ parameters  vthadd=0
     g51011 (n_8 n_7 inh_gnd inh_vdd) INV2
     g51006 (n_10 n_9 inh_gnd inh_vdd) INV2
     g50845 (n_139 n_140 inh_gnd inh_vdd) INV2
-    g50932 (n_84 n_83 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50932 (n_84 n_83 inh_gnd inh_vdd) INV2
     g50724 (n_271 n_270 inh_gnd inh_vdd) INV2
     g50838 (n_162 n_161 inh_gnd inh_vdd) INV2
     g50717 (n_249 n_295 inh_gnd inh_vdd) INV2
     g50781 (n_203 n_204 inh_gnd inh_vdd) INV2
     g50779 (n_215 n_214 inh_gnd inh_vdd) INV2
-    g50835 (n_173 n_174 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50835 (n_173 n_174 inh_gnd inh_vdd) INV2
     g50776 (n_223 n_222 inh_gnd inh_vdd) INV2
     g50782 (n_195 n_194 inh_gnd inh_vdd) INV2
-    g50840 (n_158 n_157 inh_gnd inh_vdd) INV2 vthadd=1.0
-    g50718 (n_292 n_293 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50840 (n_158 n_157 inh_gnd inh_vdd) INV2
+    g50718 (n_292 n_293 inh_gnd inh_vdd) INV2
     g50723 (n_273 n_272 inh_gnd inh_vdd) INV2
     g50772 (n_242 n_243 inh_gnd inh_vdd) INV2
     g50833 (n_185 n_186 inh_gnd inh_vdd) INV2
     g50847 (n_136 n_135 inh_gnd inh_vdd) INV2
-    g50837 (n_166 n_165 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50837 (n_166 n_165 inh_gnd inh_vdd) INV2
     g50839 (n_160 n_159 inh_gnd inh_vdd) INV2
     g50668 (n_307 n_325 inh_gnd inh_vdd) INV2
-    g50783 (n_193 n_192 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50783 (n_193 n_192 inh_gnd inh_vdd) INV2
     g50780 (n_212 n_213 inh_gnd inh_vdd) INV2
-    g50846 (n_138 n_137 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50846 (n_138 n_137 inh_gnd inh_vdd) INV2
     g50841 (n_155 n_154 inh_gnd inh_vdd) INV2
     g50715 (n_300 n_301 inh_gnd inh_vdd) INV2
     g50662 (n_348 n_349 inh_gnd inh_vdd) INV2
-    g50501 (n_517 n_518 inh_gnd inh_vdd) INV2 vthadd=1.0
+    g50501 (n_517 n_518 inh_gnd inh_vdd) INV2
     g50666 (n_330 n_329 inh_gnd inh_vdd) INV2
     g50599 (n_392 n_415 inh_gnd inh_vdd) INV2
     g50849 (n_130 n_129 inh_gnd inh_vdd) INV2
@@ -553,21 +539,21 @@ parameters  vthadd=0
     g50396 (n_619 n_620 inh_gnd inh_vdd) INV2
     g50422__2391 (n_202 n_206 n_270 n_588 n_597 inh_gnd inh_vdd) NOR40
     g50498__5795 (n_172 n_327 n_286 n_507 n_521 inh_gnd inh_vdd) NOR40
-    g50436__7344 (n_327 n_161 n_153 n_576 n_583 inh_gnd inh_vdd) NOR40 vthadd=1.0
+    g50436__7344 (n_327 n_161 n_153 n_576 n_583 inh_gnd inh_vdd) NOR40
     g50517__7675 (n_201 n_268 n_262 n_490 n_502 inh_gnd inh_vdd) NOR40
     g50472__4296 (n_147 n_202 n_268 n_650 n_547 inh_gnd inh_vdd) NOR40
     g50412__3772 (n_321 n_416 n_354 n_596 n_607 inh_gnd inh_vdd) NOR40
     g50394__5266 (n_205 n_267 n_332 n_616 n_622 inh_gnd inh_vdd) NOR40
-    g50520__1786 (n_153 n_319 n_336 n_484 n_499 inh_gnd inh_vdd) NOR40 vthadd=1.0
-    g50484__2391 (n_157 n_336 n_332 n_526 n_535 inh_gnd inh_vdd) NOR40 vthadd=1.0
-    g50538__3772 (n_353 n_417 n_416 n_460 n_481 inh_gnd inh_vdd) NOR40 vthadd=1.0
-    g50452__7675 (n_462 n_421 n_455 n_557 n_567 inh_gnd inh_vdd) NOR40 vthadd=1.0
-    g50405__1857 (n_293 n_336 n_404 n_602 n_613 inh_gnd inh_vdd) NOR40 vthadd=1.0
-    g50427__1786 (n_153 n_168 n_350 n_584 n_592 inh_gnd inh_vdd) NOR40 vthadd=1.0
+    g50520__1786 (n_153 n_319 n_336 n_484 n_499 inh_gnd inh_vdd) NOR40
+    g50484__2391 (n_157 n_336 n_332 n_526 n_535 inh_gnd inh_vdd) NOR40
+    g50538__3772 (n_353 n_417 n_416 n_460 n_481 inh_gnd inh_vdd) NOR40
+    g50452__7675 (n_462 n_421 n_455 n_557 n_567 inh_gnd inh_vdd) NOR40
+    g50405__1857 (n_293 n_336 n_404 n_602 n_613 inh_gnd inh_vdd) NOR40
+    g50427__1786 (n_153 n_168 n_350 n_584 n_592 inh_gnd inh_vdd) NOR40
     g50434__2703 (n_357 n_301 n_421 n_574 n_585 inh_gnd inh_vdd) NOR40
     g50433__6083 (n_135 n_149 n_155 n_577 n_586 inh_gnd inh_vdd) NOR40
     g50527__6083 (n_349 n_282 n_350 n_479 n_492 inh_gnd inh_vdd) NOR40
-    g50506__4296 (n_275 n_264 n_276 n_495 n_513 inh_gnd inh_vdd) NOR40 vthadd=1.0
+    g50506__4296 (n_275 n_264 n_276 n_495 n_513 inh_gnd inh_vdd) NOR40
     g50518__7118 (n_275 n_407 n_377 n_487 n_501 inh_gnd inh_vdd) NOR40
     g50444__1474 (n_279 n_353 n_281 n_565 n_575 inh_gnd inh_vdd) NOR40
     g50428__5953 (n_221 n_268 n_276 n_582 n_591 inh_gnd inh_vdd) NOR40
@@ -602,16 +588,16 @@ parameters  vthadd=0
     g50463__2703 (n_132 n_323 n_269 n_546 n_556 inh_gnd inh_vdd) NOR40
     g50414__4547 (n_163 n_269 n_319 n_593 n_605 inh_gnd inh_vdd) NOR40
     g50447__2683 (n_257 n_294 n_284 n_562 n_572 inh_gnd inh_vdd) NOR40
-    g50476__4547 (n_210 n_163 n_165 n_531 n_543 inh_gnd inh_vdd) NOR40 vthadd=1.0
+    g50476__4547 (n_210 n_163 n_165 n_531 n_543 inh_gnd inh_vdd) NOR40
     g50410__8780 (n_142 n_163 n_319 n_598 n_609 inh_gnd inh_vdd) NOR40
     g50430__7114 (n_143 n_155 n_354 n_580 n_589 inh_gnd inh_vdd) NOR40
     g50590__2250 (n_68 n_98 n_198 n_219 n_428 inh_gnd inh_vdd) NOR40
     g50553__5703 (n_118 n_87 n_134 n_343 n_464 inh_gnd inh_vdd) NOR40
-    g50592__2703 (n_76 n_59 n_68 n_150 n_426 inh_gnd inh_vdd) NOR40 vthadd=1.0
+    g50592__2703 (n_76 n_59 n_68 n_150 n_426 inh_gnd inh_vdd) NOR40
     g50404__5019 (n_446 n_465 n_443 n_600 n_614 inh_gnd inh_vdd) NOR40
     g50400__5795 (n_410 n_446 n_461 n_608 n_617 inh_gnd inh_vdd) NOR40
     g50392__5703 (n_402 n_447 n_471 n_618 n_624 inh_gnd inh_vdd) NOR40
-    g50583__7118 (n_116 n_204 n_227 n_150 n_435 inh_gnd inh_vdd) NOR40 vthadd=1.0
+    g50583__7118 (n_116 n_204 n_227 n_150 n_435 inh_gnd inh_vdd) NOR40
     g50456__5953 (n_410 n_446 n_443 n_554 n_563 inh_gnd inh_vdd) NOR40
     g50395__2250 (n_335 n_410 n_465 n_611 n_621 inh_gnd inh_vdd) NOR40
     g50938 (n_72 n_71 inh_gnd inh_vdd) CLKIN3
@@ -626,11 +612,11 @@ parameters  vthadd=0
     g50716 (n_296 n_297 inh_gnd inh_vdd) CLKIN3
     g50843 (n_148 n_147 inh_gnd inh_vdd) CLKIN3
     g50900 (n_117 n_116 inh_gnd inh_vdd) CLKIN3
-    g50836 (n_169 n_168 inh_gnd inh_vdd) CLKIN3 vthadd=1.0
+    g50836 (n_169 n_168 inh_gnd inh_vdd) CLKIN3
     g50631 (n_361 n_388 inh_gnd inh_vdd) CLKIN3
     g50842 (n_151 n_152 inh_gnd inh_vdd) CLKIN3
     g50557 (n_457 n_462 inh_gnd inh_vdd) CLKIN3
-    g50633 (n_378 n_377 inh_gnd inh_vdd) CLKIN3 vthadd=1.0
+    g50633 (n_378 n_377 inh_gnd inh_vdd) CLKIN3
     g50602 (n_406 n_407 inh_gnd inh_vdd) CLKIN3
     g50777 (n_220 n_221 inh_gnd inh_vdd) CLKIN3
     g50784 (n_190 n_191 inh_gnd inh_vdd) CLKIN3
@@ -644,8 +630,8 @@ parameters  vthadd=0
     g50479 (n_539 n_540 inh_gnd inh_vdd) CLKIN3
     g50473 (n_545 n_546 inh_gnd inh_vdd) CLKIN3
     g50630 (n_367 n_389 inh_gnd inh_vdd) CLKIN3
-    g50581 (n_426 n_438 inh_gnd inh_vdd) CLKIN3 vthadd=1.0
-    g50580 (n_435 n_439 inh_gnd inh_vdd) CLKIN3 vthadd=1.0
+    g50581 (n_426 n_438 inh_gnd inh_vdd) CLKIN3
+    g50580 (n_435 n_439 inh_gnd inh_vdd) CLKIN3
     g50746__5019 (n_84 n_48 n_176 n_249 inh_gnd inh_vdd) AOI211
     g50545__2900 (n_428 n_64 n_42 n_474 inh_gnd inh_vdd) AOI211
     g50744__7344 (n_76 n_41 n_172 n_298 inh_gnd inh_vdd) AOI211
@@ -659,17 +645,17 @@ parameters  vthadd=0
     g50749__8780 (n_73 n_35 n_143 n_291 inh_gnd inh_vdd) AOI211
     g50711__4547 (n_92 n_74 n_40 n_319 inh_gnd inh_vdd) AOI211
     g50606__8780 (n_241 n_243 n_49 n_400 inh_gnd inh_vdd) AOI211
-    g50750__4296 (n_96 n_39 n_145 n_290 inh_gnd inh_vdd) AOI211 vthadd=1.0
+    g50750__4296 (n_96 n_39 n_145 n_290 inh_gnd inh_vdd) AOI211
     g50704__5019 (n_96 n_28 n_183 n_328 inh_gnd inh_vdd) AOI211
     g50607__4296 (n_226 n_72 n_51 n_399 inh_gnd inh_vdd) AOI211
     g50644__1474 (n_209 n_102 n_40 n_365 inh_gnd inh_vdd) AOI211
-    g50649__6877 (n_213 n_67 n_49 n_387 inh_gnd inh_vdd) AOI211 vthadd=1.0
-    g50568__8780 (n_50 n_227 n_387 n_456 inh_gnd inh_vdd) AOI211 vthadd=1.0
-    g50685__2683 (n_95 n_114 n_49 n_353 inh_gnd inh_vdd) AOI211 vthadd=1.0
+    g50649__6877 (n_213 n_67 n_49 n_387 inh_gnd inh_vdd) AOI211
+    g50568__8780 (n_50 n_227 n_387 n_456 inh_gnd inh_vdd) AOI211
+    g50685__2683 (n_95 n_114 n_49 n_353 inh_gnd inh_vdd) AOI211
     g50757__6877 (n_65 n_60 n_37 n_282 inh_gnd inh_vdd) AOI211
-    g50626__6083 (n_188 n_38 n_281 n_406 inh_gnd inh_vdd) AOI211 vthadd=1.0
+    g50626__6083 (n_188 n_38 n_281 n_406 inh_gnd inh_vdd) AOI211
     g50619__8757 (n_38 n_104 n_282 n_392 inh_gnd inh_vdd) AOI211
-    g50758__2900 (n_81 n_88 n_37 n_281 inh_gnd inh_vdd) AOI211 vthadd=1.0
+    g50758__2900 (n_81 n_88 n_37 n_281 inh_gnd inh_vdd) AOI211
     g50559__2703 (n_54 n_79 n_434 n_459 inh_gnd inh_vdd) AOI211
     g50612__2683 (n_239 n_197 n_51 n_394 inh_gnd inh_vdd) AOI211
     g50738__7114 (n_65 n_107 n_37 n_250 inh_gnd inh_vdd) AOI211
@@ -681,8 +667,8 @@ parameters  vthadd=0
     g50732__7675 (n_78 n_117 n_36 n_256 inh_gnd inh_vdd) AOI211
     g50733__7118 (n_83 n_78 n_53 n_255 inh_gnd inh_vdd) AOI211
     g50770__2703 (n_61 n_69 n_42 n_262 inh_gnd inh_vdd) AOI211
-    g50608__3772 (n_241 n_75 n_42 n_398 inh_gnd inh_vdd) AOI211 vthadd=1.0
-    g50555__5266 (n_200 n_50 n_450 n_466 inh_gnd inh_vdd) AOI211 vthadd=1.0
+    g50608__3772 (n_241 n_75 n_42 n_398 inh_gnd inh_vdd) AOI211
+    g50555__5266 (n_200 n_50 n_450 n_466 inh_gnd inh_vdd) AOI211
     g50611__9682 (n_246 n_103 n_36 n_395 inh_gnd inh_vdd) AOI211
     g50740__2250 (n_38 n_108 n_206 n_304 inh_gnd inh_vdd) AOI211
     g50621__5953 (n_247 n_52 n_305 n_412 inh_gnd inh_vdd) AOI211
@@ -692,38 +678,38 @@ parameters  vthadd=0
     g50616__2391 (n_50 n_116 n_259 n_418 inh_gnd inh_vdd) AOI211
     g50752__1474 (n_111 n_25 n_152 n_288 inh_gnd inh_vdd) AOI211
     g50764__5953 (n_68 n_54 n_94 n_50 n_271 inh_gnd inh_vdd) AOI221
-    g50748__9906 (n_48 n_106 n_38 n_100 n_292 inh_gnd inh_vdd) AOI221 vthadd=1.0
+    g50748__9906 (n_48 n_106 n_38 n_100 n_292 inh_gnd inh_vdd) AOI221
     g50763__1786 (n_70 n_39 n_100 n_35 n_273 inh_gnd inh_vdd) AOI221
     g50648__1309 (n_184 n_41 n_48 n_112 n_361 inh_gnd inh_vdd) AOI221
     g50743__5795 (n_101 n_38 n_66 n_52 n_299 inh_gnd inh_vdd) AOI221
     g50760__7675 (n_94 n_38 n_62 n_15 n_277 inh_gnd inh_vdd) AOI221
-    g50640__9906 (n_134 n_52 n_66 n_15 n_369 inh_gnd inh_vdd) AOI221 vthadd=1.0
-    g50657__5703 (n_195 n_52 n_130 n_1 n_378 inh_gnd inh_vdd) AOI221 vthadd=1.0
+    g50640__9906 (n_134 n_52 n_66 n_15 n_369 inh_gnd inh_vdd) AOI221
+    g50657__5703 (n_195 n_52 n_130 n_1 n_378 inh_gnd inh_vdd) AOI221
     g50655__1786 (n_195 n_50 n_244 FE_OFN1_n_2 n_380 inh_gnd inh_vdd) AOI221
     g50554__7114 (n_401 n_48 n_52 n_79 n_463 inh_gnd inh_vdd) AOI221
     g50646__9682 (n_207 n_39 n_233 n_41 n_363 inh_gnd inh_vdd) AOI221
     g50587__5703 (n_346 n_38 n_50 n_91 n_431 inh_gnd inh_vdd) AOI221
     g50578__2391 (n_309 n_52 n_116 n_25 n_444 inh_gnd inh_vdd) AOI221
-    g50656__5953 (n_121 n_50 n_39 n_111 n_379 inh_gnd inh_vdd) AOI221 vthadd=1.0
+    g50656__5953 (n_121 n_50 n_39 n_111 n_379 inh_gnd inh_vdd) AOI221
     g50513__1309 (n_42 n_93 n_497 n_251 n_506 inh_gnd inh_vdd) OAI2111
     g50547__7675 (n_40 n_226 n_427 n_290 n_472 inh_gnd inh_vdd) OAI2111
-    g50494__2250 (n_114 n_42 n_518 n_432 n_525 inh_gnd inh_vdd) OAI2111 vthadd=1.0
+    g50494__2250 (n_114 n_42 n_518 n_432 n_525 inh_gnd inh_vdd) OAI2111
     g50512__2683 (n_42 n_181 n_501 n_334 n_507 inh_gnd inh_vdd) OAI2111 vthadd=1.0
     g50550__8757 (n_36 n_440 n_371 n_310 n_469 inh_gnd inh_vdd) OAI2111
     g50489__1786 (n_37 n_356 n_527 n_442 n_530 inh_gnd inh_vdd) OAI2111
-    g50558__6083 (n_49 n_312 n_240 n_182 n_460 inh_gnd inh_vdd) OAI2111 vthadd=1.0
+    g50558__6083 (n_49 n_312 n_240 n_182 n_460 inh_gnd inh_vdd) OAI2111
     g50464__5795 (n_49 n_464 n_550 n_375 n_555 inh_gnd inh_vdd) OAI2111
     g50457__5703 (n_42 n_316 n_560 n_364 n_562 inh_gnd inh_vdd) OAI2111
     g50625__2250 (n_40 n_88 n_131 n_240 n_391 inh_gnd inh_vdd) OAI2111
     g50964 (n_48 n_47 inh_gnd inh_vdd) INV3
     g50975 (n_38 n_37 inh_gnd inh_vdd) INV3
     g50999 (n_15 n_14 inh_gnd inh_vdd) INV3
-    g50963 (n_50 n_49 inh_gnd inh_vdd) INV3 vthadd=1.0
+    g50963 (n_50 n_49 inh_gnd inh_vdd) INV3
     g50961 (n_54 n_53 inh_gnd inh_vdd) INV3
     g50987 (n_28 n_27 inh_gnd inh_vdd) INV3
     g50974 (n_40 n_39 inh_gnd inh_vdd) INV3
     g50962 (n_52 n_51 inh_gnd inh_vdd) INV3
-    g50909 (n_98 n_97 inh_gnd inh_vdd) INV3 vthadd=1.0
+    g50909 (n_98 n_97 inh_gnd inh_vdd) INV3
     g50935 (n_78 n_77 inh_gnd inh_vdd) INV3
     g50988 (n_26 n_25 inh_gnd inh_vdd) INV3
     g50944 (n_60 n_59 inh_gnd inh_vdd) INV3
@@ -747,10 +733,10 @@ parameters  vthadd=0
     g50939 (n_70 n_69 inh_gnd inh_vdd) INV3
     g50667 (n_327 n_326 inh_gnd inh_vdd) INV3
     g50775 (n_228 n_229 inh_gnd inh_vdd) INV3
-    g50834 (n_178 n_179 inh_gnd inh_vdd) INV3 vthadd=1.0
+    g50834 (n_178 n_179 inh_gnd inh_vdd) INV3
     g50665 (n_335 n_334 inh_gnd inh_vdd) INV3
     g50774 (n_230 n_231 inh_gnd inh_vdd) INV3
-    g50603 (n_404 n_405 inh_gnd inh_vdd) INV3 vthadd=1.0
+    g50603 (n_404 n_405 inh_gnd inh_vdd) INV3
     g50720 (n_279 n_280 inh_gnd inh_vdd) INV3
     g50661 (n_351 n_352 inh_gnd inh_vdd) INV3
     g50563 (n_450 n_451 inh_gnd inh_vdd) INV3 vthadd=1.0
@@ -762,18 +748,18 @@ parameters  vthadd=0
     g50745__1840 (n_63 n_59 n_52 n_296 inh_gnd inh_vdd) OAI212
     g50609__1474 (FE_OFN1_n_2 n_215 n_236 n_397 inh_gnd inh_vdd) OAI212
     g50737__5703 (n_70 n_68 n_54 n_251 inh_gnd inh_vdd) OAI212
-    g50643__3772 (n_62 n_174 n_48 n_366 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50643__3772 (n_62 n_174 n_48 n_366 inh_gnd inh_vdd) OAI212
     g50753__4547 (n_101 n_70 n_52 n_287 inh_gnd inh_vdd) OAI212
     g50767__5266 (n_61 n_49 n_127 n_267 inh_gnd inh_vdd) OAI212
     g50762__8757 (n_26 n_74 n_189 n_275 inh_gnd inh_vdd) OAI212
     g50765__5703 (n_49 n_74 n_158 n_269 inh_gnd inh_vdd) OAI212
-    g50638__5019 (n_116 n_192 n_50 n_371 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50638__5019 (n_116 n_192 n_50 n_371 inh_gnd inh_vdd) OAI212
     g50734__8757 (n_84 n_59 n_39 n_254 inh_gnd inh_vdd) OAI212
-    g50617__7675 (n_53 n_213 n_216 n_417 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50617__7675 (n_53 n_213 n_216 n_417 inh_gnd inh_vdd) OAI212
     g50618__7118 (n_119 n_53 n_344 n_416 inh_gnd inh_vdd) OAI212
     g50730__2900 (n_115 n_86 n_48 n_258 inh_gnd inh_vdd) OAI212
     g50681__3772 (n_42 n_92 n_217 n_357 inh_gnd inh_vdd) OAI212
-    g50614__6877 (n_47 n_65 n_340 n_421 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50614__6877 (n_47 n_65 n_340 n_421 inh_gnd inh_vdd) OAI212
     g50747__1857 (n_27 n_107 n_148 n_294 inh_gnd inh_vdd) OAI212
     g50674__7344 (n_27 n_114 n_177 n_313 inh_gnd inh_vdd) OAI212
     g50736__5953 (n_73 n_66 n_54 n_252 inh_gnd inh_vdd) OAI212
@@ -784,26 +770,26 @@ parameters  vthadd=0
     g50694__5953 (n_81 n_53 n_208 n_341 inh_gnd inh_vdd) OAI212
     g50628__5795 (n_85 n_36 n_355 n_402 inh_gnd inh_vdd) OAI212
     g50769__6083 (n_99 n_53 n_167 n_264 inh_gnd inh_vdd) OAI212
-    g50610__4547 (n_191 n_138 n_54 n_396 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50610__4547 (n_191 n_138 n_54 n_396 inh_gnd inh_vdd) OAI212
     g50768__2250 (n_36 n_65 n_170 n_266 inh_gnd inh_vdd) OAI212
     g50624__5266 (n_36 n_88 n_330 n_409 inh_gnd inh_vdd) OAI212
-    g50654__8757 (n_106 n_198 n_54 n_381 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50654__8757 (n_106 n_198 n_54 n_381 inh_gnd inh_vdd) OAI212
     g50751__3772 (n_113 n_36 n_146 n_289 inh_gnd inh_vdd) OAI212
     g50650__2900 (n_26 n_67 n_287 n_386 inh_gnd inh_vdd) OAI212
     g50597__1857 (n_94 n_343 n_54 n_436 inh_gnd inh_vdd) OAI212
     g50579__7675 (n_42 n_317 n_258 n_443 inh_gnd inh_vdd) OAI212
     g50645__4547 (n_100 n_230 n_48 n_364 inh_gnd inh_vdd) OAI212
-    g50735__1786 (n_98 n_76 n_54 n_253 inh_gnd inh_vdd) OAI212 vthadd=1.0
+    g50735__1786 (n_98 n_76 n_54 n_253 inh_gnd inh_vdd) OAI212
     g50680__4296 (n_47 n_93 n_136 n_358 inh_gnd inh_vdd) OAI212
     g50658__7114 (n_110 n_42 n_291 n_360 inh_gnd inh_vdd) OAI212
-    g50874__2900 (n_97 n_37 n_163 inh_gnd inh_vdd) NOR21 vthadd=1.0
-    g50886__2703 (n_49 n_97 n_145 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50874__2900 (n_97 n_37 n_163 inh_gnd inh_vdd) NOR21
+    g50886__2703 (n_49 n_97 n_145 inh_gnd inh_vdd) NOR21
     g50853__5703 (n_71 n_84 n_122 inh_gnd inh_vdd) NOR21
     g50790__9906 (n_4 n_119 n_244 inh_gnd inh_vdd) NOR21
     g50979__2703 (n_10 n_24 n_44 inh_gnd inh_vdd) NOR21
     g50949__9906 (n_31 n_45 n_82 inh_gnd inh_vdd) NOR21
     g50864__9906 (n_42 n_78 n_176 inh_gnd inh_vdd) NOR21
-    g50795__4547 (n_20 n_90 n_238 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50795__4547 (n_20 n_90 n_238 inh_gnd inh_vdd) NOR21
     g50993__1474 (n_13 n_4 n_28 inh_gnd inh_vdd) NOR21
     g51004__2900 (n_7 n_11 n_17 inh_gnd inh_vdd) NOR21
     g51000__9682 (n_5 n_12 n_23 inh_gnd inh_vdd) NOR21
@@ -831,17 +817,17 @@ parameters  vthadd=0
     g50804__8757 (n_94 n_82 n_226 inh_gnd inh_vdd) NOR21
     g50894__4296 (n_80 n_40 n_132 inh_gnd inh_vdd) NOR21
     g50823__4547 (n_42 n_105 n_201 inh_gnd inh_vdd) NOR21
-    g50866__4296 (n_82 n_84 n_173 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50866__4296 (n_82 n_84 n_173 inh_gnd inh_vdd) NOR21
     g50697__5266 (n_40 n_173 n_337 inh_gnd inh_vdd) NOR21
     g50822__1474 (n_47 n_92 n_202 inh_gnd inh_vdd) NOR21
     g50821__3772 (n_118 n_59 n_203 inh_gnd inh_vdd) NOR21
     g50709__3772 (n_40 n_193 n_321 inh_gnd inh_vdd) NOR21
     g50525__5266 (n_269 n_493 n_494 inh_gnd inh_vdd) NOR21
-    g50695__5703 (n_238 n_178 n_340 inh_gnd inh_vdd) NOR21 vthadd=1.0
-    g50792__4296 (n_115 n_66 n_241 inh_gnd inh_vdd) NOR21 vthadd=1.0
-    g50880__5953 (n_99 n_49 n_153 inh_gnd inh_vdd) NOR21 vthadd=1.0
-    g50855__5266 (n_109 n_49 n_120 inh_gnd inh_vdd) NOR21 vthadd=1.0
-    g50862__5019 (n_49 n_72 n_178 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50695__5703 (n_238 n_178 n_340 inh_gnd inh_vdd) NOR21
+    g50792__4296 (n_115 n_66 n_241 inh_gnd inh_vdd) NOR21
+    g50880__5953 (n_99 n_49 n_153 inh_gnd inh_vdd) NOR21
+    g50855__5266 (n_109 n_49 n_120 inh_gnd inh_vdd) NOR21
+    g50862__5019 (n_49 n_72 n_178 inh_gnd inh_vdd) NOR21
     g50815__1840 (n_51 n_105 n_210 inh_gnd inh_vdd) NOR21
     g50861__1840 (n_86 n_77 n_180 inh_gnd inh_vdd) NOR21
     g50802__7675 (n_36 n_119 n_228 inh_gnd inh_vdd) NOR21
@@ -849,27 +835,27 @@ parameters  vthadd=0
     g50873__6877 (n_101 n_84 n_164 inh_gnd inh_vdd) NOR21
     g50876__7675 (n_40 n_61 n_160 inh_gnd inh_vdd) NOR21
     g50706__9906 (n_142 n_205 n_307 inh_gnd inh_vdd) NOR21
-    g50830__7675 (n_101 n_106 n_193 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50830__7675 (n_101 n_106 n_193 inh_gnd inh_vdd) NOR21
     g50820__4296 (n_119 n_40 n_205 inh_gnd inh_vdd) NOR21
-    g50860__7344 (n_86 n_66 n_181 inh_gnd inh_vdd) NOR21 vthadd=1.0
-    g50698__2250 (n_49 n_137 n_336 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50860__7344 (n_86 n_66 n_181 inh_gnd inh_vdd) NOR21
+    g50698__2250 (n_49 n_137 n_336 inh_gnd inh_vdd) NOR21
     g50879__1786 (n_88 n_47 n_155 inh_gnd inh_vdd) NOR21
     g50858__2703 (n_42 n_60 n_183 inh_gnd inh_vdd) NOR21
     g50700__2703 (n_149 n_183 n_333 inh_gnd inh_vdd) NOR21
-    g50831__7118 (n_104 n_98 n_190 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50831__7118 (n_104 n_98 n_190 inh_gnd inh_vdd) NOR21
     g50687__6877 (n_51 n_231 n_350 inh_gnd inh_vdd) NOR21
     g50712__9682 (n_40 n_190 n_318 inh_gnd inh_vdd) NOR21
-    g50896__1474 (n_14 n_75 n_130 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50896__1474 (n_14 n_75 n_130 inh_gnd inh_vdd) NOR21
     g50699__6083 (n_37 n_180 n_335 inh_gnd inh_vdd) NOR21
     g50510__4547 (n_443 n_504 n_509 inh_gnd inh_vdd) NOR21
     g50852__5953 (n_79 n_68 n_123 inh_gnd inh_vdd) NOR21
     g50788__5019 (n_108 n_106 n_246 inh_gnd inh_vdd) NOR21
-    g50675__1840 (n_79 n_207 n_312 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50675__1840 (n_79 n_207 n_312 inh_gnd inh_vdd) NOR21
     g50684__9682 (n_36 n_234 n_354 inh_gnd inh_vdd) NOR21
     g50707__8780 (n_36 n_239 n_323 inh_gnd inh_vdd) NOR21
     g50794__1474 (n_104 n_76 n_239 inh_gnd inh_vdd) NOR21
     g50671__6083 (n_175 n_200 n_316 inh_gnd inh_vdd) NOR21
-    g50670__2250 (n_104 n_207 n_317 inh_gnd inh_vdd) NOR21 vthadd=1.0
+    g50670__2250 (n_104 n_207 n_317 inh_gnd inh_vdd) NOR21
     g50814__7344 (n_104 n_59 n_211 inh_gnd inh_vdd) NOR21
     g50585__1786 (n_74 n_64 n_203 n_40 n_433 inh_gnd inh_vdd) AOI311
     g50570__3772 (n_61 n_193 n_209 n_36 n_454 inh_gnd inh_vdd) AOI311
@@ -879,32 +865,32 @@ parameters  vthadd=0
     g50593__5795 (n_110 n_64 n_211 n_47 n_425 inh_gnd inh_vdd) AOI311
     g50539__1474 (n_204 n_48 n_295 n_474 n_480 inh_gnd inh_vdd) AOI2111
     g50507__3772 (n_112 n_28 n_400 n_506 n_512 inh_gnd inh_vdd) AOI2111
-    g50571__1474 (n_192 n_54 n_145 n_120 n_453 inh_gnd inh_vdd) AOI2111 vthadd=1.0
+    g50571__1474 (n_192 n_54 n_145 n_120 n_453 inh_gnd inh_vdd) AOI2111
     g50561__7344 (n_73 n_38 n_141 n_399 n_457 inh_gnd inh_vdd) AOI2111
-    g50448__1309 (n_50 n_96 n_256 n_569 n_571 inh_gnd inh_vdd) AOI2111 vthadd=1.0
+    g50448__1309 (n_50 n_96 n_256 n_569 n_571 inh_gnd inh_vdd) AOI2111
     g50596__5019 (n_191 n_41 n_140 n_228 n_422 inh_gnd inh_vdd) AOI2111
     g50652__7675 (n_59 n_35 n_224 n_142 n_383 inh_gnd inh_vdd) AOI2111
     g50495__6083 (n_150 n_52 n_132 n_516 n_524 inh_gnd inh_vdd) AOI2111
-    g50490__5953 (n_184 n_38 n_505 n_522 n_529 inh_gnd inh_vdd) AOI2111 vthadd=1.0
-    g50543__1309 (n_438 n_48 n_358 n_398 n_476 inh_gnd inh_vdd) AOI2111 vthadd=1.0
+    g50490__5953 (n_184 n_38 n_505 n_522 n_529 inh_gnd inh_vdd) AOI2111
+    g50543__1309 (n_438 n_48 n_358 n_398 n_476 inh_gnd inh_vdd) AOI2111
     g50591__6083 (n_101 n_77 n_212 n_50 n_427 inh_gnd inh_vdd) OAI311
-    g50586__5953 (n_98 n_245 n_185 n_35 n_432 inh_gnd inh_vdd) OAI311 vthadd=1.0
+    g50586__5953 (n_98 n_245 n_185 n_35 n_432 inh_gnd inh_vdd) OAI311
     g50565__5019 (n_89 n_191 n_66 n_54 n_442 inh_gnd inh_vdd) OAI311
-    g50589__5266 (n_63 n_195 n_126 n_52 n_429 inh_gnd inh_vdd) OAI311 vthadd=1.0
+    g50589__5266 (n_63 n_195 n_126 n_52 n_429 inh_gnd inh_vdd) OAI311
     g50572__4547 (n_104 n_118 n_232 n_38 n_452 inh_gnd inh_vdd) OAI311
     g50594__7344 (n_59 n_175 n_126 n_54 n_424 inh_gnd inh_vdd) OAI311
-    g50544__6877 (n_86 n_98 n_439 n_38 n_475 inh_gnd inh_vdd) OAI311 vthadd=1.0
+    g50544__6877 (n_86 n_98 n_439 n_38 n_475 inh_gnd inh_vdd) OAI311
     g50551__1786 (n_86 n_94 n_389 n_35 n_468 inh_gnd inh_vdd) OAI311
-    g50574__2683 (n_100 n_198 n_134 n_41 n_449 inh_gnd inh_vdd) OAI311 vthadd=1.0
+    g50574__2683 (n_100 n_198 n_134 n_41 n_449 inh_gnd inh_vdd) OAI311
     g50560__5795 (n_87 n_62 n_346 n_54 n_458 inh_gnd inh_vdd) OAI311
     g50677__1857 (n_118 n_98 n_39 n_310 inh_gnd inh_vdd) OAI211
-    g51021__2703 (n_201 n_141 n_149 n_649 inh_gnd inh_vdd) NOR31 vthadd=1.0
+    g51021__2703 (n_201 n_141 n_149 n_649 inh_gnd inh_vdd) NOR31
     g50682__1474 (n_73 n_82 n_118 n_356 inh_gnd inh_vdd) NOR31
-    g50537__4296 (n_472 n_417 n_238 n_482 inh_gnd inh_vdd) NOR31 vthadd=1.0
+    g50537__4296 (n_472 n_417 n_238 n_482 inh_gnd inh_vdd) NOR31
     g3__2250 (n_276 n_594 n_275 n_647 inh_gnd inh_vdd) NOR31
     g51023__7344 (n_407 n_335 n_465 n_651 inh_gnd inh_vdd) NOR31
-    g50642__4296 (n_126 n_200 n_219 n_367 inh_gnd inh_vdd) NOR31 vthadd=1.0
-    g50766__7114 (n_90 n_42 n_97 n_47 n_268 inh_gnd inh_vdd) OAI222 vthadd=1.0
+    g50642__4296 (n_126 n_200 n_219 n_367 inh_gnd inh_vdd) NOR31
+    g50766__7114 (n_90 n_42 n_97 n_47 n_268 inh_gnd inh_vdd) OAI222
     g50639__1857 (n_187 n_36 n_209 n_40 n_370 inh_gnd inh_vdd) OAI222
     g50761__7118 (n_92 n_37 n_60 n_51 n_276 inh_gnd inh_vdd) OAI222
     g50659__5266 (n_72 n_42 n_208 FE_OFN1_n_2 n_374 inh_gnd inh_vdd) OAI222
@@ -943,13 +929,13 @@ parameters  vthadd=0
     g50984__1857 (n_25 FE_OFN1_n_2 n_36 inh_gnd inh_vdd) NAND24
     g50981__7344 (n_28 n_1 n_42 inh_gnd inh_vdd) NAND24
     FE_OFC1_n_2 (n_2 FE_OFN1_n_2 inh_gnd inh_vdd) CLKBU4
-    g50972__5266 (FE_OFN1_n_2 n_20 n_48 inh_gnd inh_vdd) NOR23 vthadd=1.0
-    g50983__5019 (FE_OFN1_n_2 n_14 n_38 inh_gnd inh_vdd) NOR23 vthadd=1.0
-    g50971__7114 (n_1 n_20 n_50 inh_gnd inh_vdd) NOR23 vthadd=1.0
+    g50972__5266 (FE_OFN1_n_2 n_20 n_48 inh_gnd inh_vdd) NOR23
+    g50983__5019 (FE_OFN1_n_2 n_14 n_38 inh_gnd inh_vdd) NOR23
+    g50971__7114 (n_1 n_20 n_50 inh_gnd inh_vdd) NOR23
     g50969__5953 (n_1 n_27 n_54 inh_gnd inh_vdd) NOR23
     g50970__5703 (FE_OFN1_n_2 n_26 n_52 inh_gnd inh_vdd) NOR23
     g50954__4547 (n_43 n_18 n_72 inh_gnd inh_vdd) NAND23
-    g50982__1840 (n_15 FE_OFN1_n_2 n_40 inh_gnd inh_vdd) NAND23 vthadd=1.0
+    g50982__1840 (n_15 FE_OFN1_n_2 n_40 inh_gnd inh_vdd) NAND23
 ends sbox2
 
 subckt BUF6 A Q inh_gnd inh_vdd
