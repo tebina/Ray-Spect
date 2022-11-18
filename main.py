@@ -3,7 +3,7 @@ from utils.propagate_param import PropagateParam as pp
 from parsers.def_parser import DefParser
 
 
-file = open('netlist/netlist', 'r')
+file = open('netlist/triple_sbox/netlist', 'r')
 sample = file.read()
 parsed_netlist = parse_netlist(sample)
 
@@ -19,10 +19,10 @@ for i in range(horizontal_segments):
 region_count = 0
 for rectangle in rectangles:
     region_count += 1
-    def_obj = DefParser("netlist/sboxTOP.def", rectangle[0], rectangle[1])
+    def_obj = DefParser("netlist/triple_sbox/sboxTOP.def", rectangle[0], rectangle[1])
     fetched_instances = def_obj.region_fetch()
     netlist_obj = pp(parsed_netlist, fetched_instances, "vthadd", 0.8)
-    netlist_obj.generate_netlist("regional/regional_netlist" + str(region_count))
+    netlist_obj.generate_netlist("generated_regional_netlists/regional_netlist" + str(region_count))
 
     del def_obj
     del netlist_obj
