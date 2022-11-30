@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 def extract_data(line):
     line = line.lstrip("- ")
     s = line.split(" ")
-    component_tuple = s[0].split("/") + [s[1]]
+    component_tuple = ["sbox"] + s[0].split("/") + [s[1]]
     coordinates_tuple = line.split("(")[1].split(" ")[1:3]
+    #print(component_tuple)
     return component_tuple, coordinates_tuple
 
 

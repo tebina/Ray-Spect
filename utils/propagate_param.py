@@ -37,6 +37,7 @@ class PropagateParam:
         starting_points = remove_duplicates(self.prepare_starting_points())
         for node in starting_points:
             path_tuples = self.graph_instance.find_path(node)
+            print(path_tuples)
             for edge in path_tuples:
                 for component in self.netlist_buffer:
                     if component.typeof == "SubCircuit":
@@ -46,11 +47,9 @@ class PropagateParam:
                         if component.name == edge[0]:
                             for instance in component.instances:
                                 if instance.name == edge[1]:
-                                    instance.many_parameters[
-                                        self.parameter] = self.value
+                                    instance.many_parameters[self.parameter] = self.value
                                 elif instance.parent == edge[1]:
-                                    instance.many_parameters[
-                                        self.parameter] = self.parameter
+                                    instance.many_parameters[self.parameter] = self.parameter
                     if component.typeof == "top_instance":
                         if component.visited is False:
                             if component.name == edge[0]:
