@@ -14,6 +14,7 @@ class PropagateParam:
         self.parameter = parameter
         self.value = value
         self.graph_instance = GenerateGraph(self.netlist_buffer, self.starting_points)
+        #self.graph_instance.plot_graph()
 
     def depth_check(self, starting_node):
         depth = self.graph_instance.depth_dict(starting_node)

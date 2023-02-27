@@ -1,3 +1,6 @@
+from utils.utils import remove_backslashes
+
+
 class NetlistElement:
     """
     The NetlistElement class represents a particular type of network element in a
@@ -24,7 +27,7 @@ class SubCircuit(NetlistElement):
     """
 
     def __init__(self, name, pins, instances, parameters_line):
-        self.name = name
+        self.name = remove_backslashes(name)
         self.labels = {}
         self.instances = instances
         self.parameters = parameters_line
@@ -59,7 +62,7 @@ class TopInstance(NetlistElement):
     """
 
     def __init__(self, name, parent, nets, parameters):
-        self.name = name
+        self.name = remove_backslashes(name)
         self.parent = parent
         self.nets = nets
         self.parameters = parameters
@@ -78,7 +81,7 @@ class Comments(NetlistElement):
     """
 
     def __init__(self, name):
-        self.name = name
+        self.name = remove_backslashes(name)
         NetlistElement.__init__(self, 'comment')
 
     def __str__(self):

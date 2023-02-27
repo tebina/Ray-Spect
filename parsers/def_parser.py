@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+from utils.utils import remove_backslashes
 
 
 def extract_data(line):
@@ -49,6 +49,7 @@ class DefParser:
                 continue
             mydict = {}
             extracted_data = extract_data(raw_string)
+            extracted_data[0][0] = remove_backslashes(extracted_data[0][0])
             mydict["instance"] = extracted_data[0]
             mydict["xcoord"] = extracted_data[1][0]
             mydict["ycoord"] = extracted_data[1][1]

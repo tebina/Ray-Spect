@@ -25,6 +25,7 @@ class GenerateGraph:
         starting_edges_weight = 1
         normal_edges_weight = 0.5
         self.new_starting_points = []
+
         for component in self.parsed_netlist:
             if component.typeof == "top_instance":
                 for each_tuple in starting_points:
@@ -36,12 +37,14 @@ class GenerateGraph:
                         if len(each_tuple) >= 3:
                             temp_list[0] = component.parent
                         self.new_starting_points.append(temp_list)
+
         for each_tuple in self.new_starting_points:
             for i in range(0, len(each_tuple) - 1):
                 self.edges.append([each_tuple[i], each_tuple[i + 1]])
                 excluded_nodes.append(each_tuple[i])
                 self.edge_colors.append(starting_edges_color)
                 self.weights.append(starting_edges_weight)
+
         for component in self.parsed_netlist:
             if component.typeof == "SubCircuit":
                 if component.name not in excluded_nodes:
