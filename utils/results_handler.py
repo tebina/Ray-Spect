@@ -14,7 +14,7 @@ class NetlistElement:
         return self.typeof
 
     def __del__(self):
-        print("object destructed")
+        {}
 
 
 class SubCircuit(NetlistElement):
