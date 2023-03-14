@@ -26,19 +26,20 @@ def count_occurrences(lst, element):
                 count += 1
     return count
 
+
 region_increment = 50
 horizontal_segments = 8
 vertical_segments = 8
 rectangles = []
 for i in range(horizontal_segments):
     for j in range(vertical_segments):
-        rectangles.append(([j * region_increment, i * region_increment], [region_increment + j * region_increment, region_increment + i * region_increment]))
+        rectangles.append(([j * region_increment, i * region_increment],
+                           [region_increment + j * region_increment, region_increment + i * region_increment]))
 
 region_count = 0
 number_of_inst = []
 number_of_xnor = []
 number_of_inv = []
-
 
 number_of_nand22 = []
 number_of_nand41 = []
@@ -79,28 +80,14 @@ for rectangle in rectangles:
 # sample = file.read()
 # parsed_netlist = parse_netlist(sample)
 #
-# to_be_modfied = {('sbox', 'g51018__2683', 'XNR21'), ('sbox', 'g51015__9906', 'XNR21'),
-#                  ('sbox', 'g51008__9682', 'XNR21'), ('sbox', 'g51017__4547', 'XNR21'),
-#                  ('sbox', 'g51009__1474', 'XNR21'), ('sbox', 'g51010__3772', 'XNR21'),
-#                  ('sbox', 'g51007__4296', 'XNR21'), ('sbox', 'g51016__8780', 'XNR21'),
-#                  ('sbox', 'g50992__5019', 'NAND22'), ('sbox', 'g50991__7344', 'NOR21'), ('sbox', 'g51011', 'INV2'),
-#                  ('sbox', 'g51012', 'INV2'),
-#                  ('sbox', 'g50989__1840', 'NOR21'), ('sbox', 'g50990__2703', 'NAND22'), ('sbox', 'g51013', 'INV2'),
-#                  ('sbox', 'g50790__8780', 'NOR21'), ('sbox', 'g50994__1857', 'NAND22'),
-#                  ('sbox', 'g50993__5795', 'NOR22'),
-#                  ('sbox', 'g51002__5266', 'NAND22'), ('sbox', 'g51005__6083', 'NOR22'),
-#                  ('sbox', 'g50991__7344', 'NOR21'), ('sbox', 'g51004__2250', 'NOR21'),
-#                  ('sbox', 'g50992__5019', 'NAND22'),
-#                  ('sbox', 'g51003__7114', 'NAND22'), ('sbox', 'g51000__5953', 'NOR21'),
-#                  ('sbox', 'g51001__5703', 'NAND22'), ('sbox', 'g51006', 'INV2'), ('sbox', 'g50979__7344', 'NOR21'),
-#                  ('sbox', 'g50968__8757', 'NOR21'),
-#                  ('sbox', 'g50980__2683', 'NOR21'), ('sbox', 'g50978__7118', 'NAND22'),
-#                  ('sbox', 'g50967__7118', 'NAND22'), ('sbox', 'g50977__9682', 'NAND22')}
+# to_be_modfied = {('sbox', 'reg_reg\[0\]', 'DFC3'), ('sbox', 'reg_reg\[1\]', 'DFC3'), ('sbox', 'reg_reg\[2\]', 'DFC3'),
+#                  ('sbox', 'reg_reg\[3\]', 'DFC3'), ('sbox', 'reg_reg\[4\]', 'DFC3'), ('sbox', 'reg_reg\[5\]', 'DFC3'),
+#                  ('sbox', 'reg_reg\[6\]', 'DFC3'), ('sbox', 'reg_reg\[7\]', 'DFC3') }
 #
 # netlist_obj = pp(parsed_netlist, to_be_modfied, "vthadd", 0.5)
 # netlist_obj.generate_netlist("single_sbox/generated_precise")
 # del netlist_obj
-#
+
 number_of_inst = np.array(number_of_inst)
 data = number_of_inst.reshape((8, 8))
 # # Create the heatmap
@@ -113,15 +100,14 @@ plt.title('number of fetched instance in each of the 64 regions')
 plt.savefig('pdf/number_of_fetched_instances.pdf', dpi=300, bbox_inches='tight')
 plt.close()
 
-
-number_of_xnor =np.array(number_of_xnor)
-number_of_inv = np.array(number_of_inv )
-number_of_nand22 =np.array(number_of_nand22)
+number_of_xnor = np.array(number_of_xnor)
+number_of_inv = np.array(number_of_inv)
+number_of_nand22 = np.array(number_of_nand22)
 number_of_nor21 = np.array(number_of_nor21)
 
-number_of_nand41 =np.array(number_of_nand41)
-number_of_nand31 = np.array(number_of_nand31 )
-number_of_nor40 =np.array(number_of_nor40)
+number_of_nand41 = np.array(number_of_nand41)
+number_of_nand31 = np.array(number_of_nand31)
+number_of_nor40 = np.array(number_of_nor40)
 number_of_dfc3 = np.array(number_of_dfc3)
 number_of_clkbuf = np.array(number_of_clkbuf)
 
@@ -135,7 +121,6 @@ data7 = number_of_nand31.reshape((8, 8))
 data8 = number_of_nor40.reshape((8, 8))
 data9 = number_of_dfc3.reshape((8, 8))
 data10 = number_of_clkbuf.reshape((8, 8))
-
 
 ax = sns.heatmap(data2[::-1], cmap='Blues', annot=True, cbar=False, square=True)
 ax.set_xticklabels([])
