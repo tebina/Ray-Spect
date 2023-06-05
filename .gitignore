@@ -106,9 +106,14 @@ celerybeat.pid
 .venv
 env/
 venv/
+input_files/generated_netlists
 ENV/
 env.bak/
 venv.bak/
+input_files/quadruple_sbox
+input_files/single_sbox
+input_files/triple_sbox
+input_files/cmos53.scs
 
 # Spyder project settings
 .spyderproject

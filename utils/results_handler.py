@@ -1,7 +1,7 @@
 class NetlistElement:
     """
     The NetlistElement class represents a particular type of network element in a
-    netlist. A NetlistElement instance has a type which can be one of
+    example_aes_sbox_netlist. A NetlistElement instance has a type which can be one of
     "SubCircuit", "top_instance", or "comment". It also has a visited property which
     states whether the element has been visited already.
     """
@@ -74,7 +74,7 @@ class TopInstance(NetlistElement):
 
 class Comments(NetlistElement):
     """
-    This class defines a comment in a netlist. Comments are used to document the design of a circuit.
+    This class defines a comment in a example_aes_sbox_netlist. Comments are used to document the design of a circuit.
     """
 
     def __init__(self, name):
