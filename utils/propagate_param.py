@@ -27,11 +27,11 @@ class PropagateParam:
 
     def propagate_param(self):
         """
-        This function propagates parameters from one circuit in a example_aes_sbox_netlist to another circuit. The first circuit in
-        the example_aes_sbox_netlist is the source circuit, and the second circuit is the target circuit. The function finds the paths
+        This function propagates parameters from one circuit in a aes_sbox_netlist to another circuit. The first circuit in
+        the aes_sbox_netlist is the source circuit, and the second circuit is the target circuit. The function finds the paths
         between the circuits and updates the parameter values for each circuit along the path. It also checks to see
         if the circuit has been visited already, and updates the parameter value if it has. Finally, it returns the
-        modified example_aes_sbox_netlist buffer.
+        modified aes_sbox_netlist buffer.
         """
 
         starting_points = remove_duplicates(self.prepare_starting_points())
@@ -60,16 +60,16 @@ class PropagateParam:
 
     def generate_netlist(self, generated_netlist_name):
         """
-        Generate a example_aes_sbox_netlist from the example_aes_sbox_netlist buffer.
+        Generate a aes_sbox_netlist from the aes_sbox_netlist buffer.
 
-        This function takes a example_aes_sbox_netlist buffer input and produces a example_aes_sbox_netlist file. The example_aes_sbox_netlist file can be used for
+        This function takes a aes_sbox_netlist buffer input and produces a aes_sbox_netlist file. The aes_sbox_netlist file can be used for
         further circuit simulation or design.
         """
-        template_loader = jinja2.FileSystemLoader(searchpath="./")
+        template_loader = jinja2.FileSystemLoader(searchpath="../")
         template_env = jinja2.Environment(loader=template_loader)
-        template_file = "templates/subcircuit_template"
+        template_file = "./templates/subcircuit_template"
         template = template_env.get_template(template_file)
         output = template.render(parsed_netlist=self.propagate_param())
-        f = open("example_aes_sbox_netlist/"+generated_netlist_name, "w")
+        f = open(generated_netlist_name, "w")
         f.write(output)
         f.close()

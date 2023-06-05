@@ -10,7 +10,7 @@ class GenerateGraph:
         """
         -staring tuples (A,B,C) are converted into edges (A,B) (B,C) (C,D)
         -Adding all nodes from starting tuple members to the excluded sub-circuits to parse
-        into the example_aes_sbox_netlist tree, except the last element (A, B, C) ==> (A, B) excluded / (C) kept
+        into the aes_sbox_netlist tree, except the last element (A, B, C) ==> (A, B) excluded / (C) kept
         :type parsed_netlist: object
         :param parsed_netlist:
         :param starting_points:

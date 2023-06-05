@@ -106,7 +106,7 @@ celerybeat.pid
 .venv
 env/
 venv/
-input_files/generated_netlists
+tests/generated_netlists
 ENV/
 env.bak/
 venv.bak/

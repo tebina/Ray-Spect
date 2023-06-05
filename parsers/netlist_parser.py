@@ -4,23 +4,23 @@ from utils import results_handler as rh
 
 def parse_netlist(file_string):
     """
-    This function parses a example_aes_sbox_netlist file into a Python list of dictionaries, each containing:
+    This function parses a aes_sbox_netlist file into a Python list of dictionaries, each containing:
     - A comment
     - A Sub-circuit
     - A TOPLEVEL instance
 
      The function handles any type of parameter, including those defined on the parameter definition line which
      always starts with "parameters". It also handles instances and sub-circuits. Finally, it prints out the parsed
-     example_aes_sbox_netlist.
+     aes_sbox_netlist.
      :param file_string:
-     :return: parsed example_aes_sbox_netlist
+     :return: parsed aes_sbox_netlist
     """
 
     # define a tabulation as a whitespace
     ws = ' \t'
     pp.ParserElement.setDefaultWhitespaceChars(ws)
 
-    # Specter example_aes_sbox_netlist grammar
+    # Specter aes_sbox_netlist grammar
     eol = pp.lineEnd().suppress()  # End of line
     line_break = pp.Suppress("\\" + pp.LineEnd())  # Line break
     equal_sign = pp.Suppress("=")
