@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 
 def extract_data(line):
     line = line.lstrip("- ")
@@ -69,14 +67,6 @@ class DefParser:
             if self.xcoord1 < int(instance["xcoord"]) < self.xcoord2 and self.ycoord1 < int(
                     instance["ycoord"]) < self.ycoord2:
                 instances_in_region.append(instance["instance"])
-        #         plt.plot(float(instance["xcoord"]) / um, float(instance["ycoord"]) / um, marker="s", markersize=10,
-        #                  markeredgecolor="yellow", markerfacecolor="red")
-        #         plt.text(float(instance["xcoord"]) / um, float(instance["ycoord"]) / um, instance["instance"][-2],
-        #                  rotation=45, fontsize=5, weight='bold')
-        #     else:
-        #         plt.plot(float(instance["xcoord"]) / um, float(instance["ycoord"]) / um, marker="s", markersize=10,
-        #                  markeredgecolor="yellow", markerfacecolor="blue")
-        # plt.savefig("instance_region.pdf", dpi='figure')
         print("There are", len(instances_in_region), "instances in the rectangle in micrometers : (", self.xcoord1/um,
               ",",
               self.ycoord1/um, ") (", self.xcoord2/um, ",", self.ycoord2/um, ")")
