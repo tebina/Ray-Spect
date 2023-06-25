@@ -46,10 +46,10 @@ class PropagateParam:
                         if component.name == edge[0]:
                             for instance in component.instances:
                                 if instance.name == edge[1]:
-                                    instance.many_parameters[
+                                    instance.parameters[
                                         self.parameter] = self.value
                                 elif instance.parent == edge[1]:
-                                    instance.many_parameters[
+                                    instance.parameters[
                                         self.parameter] = self.parameter
                     if component.typeof == "top_instance":
                         if component.visited is False:
