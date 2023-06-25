@@ -20,23 +20,32 @@ class SubCircuit(NetlistElement):
     and single output. It has a name, labels, instances, and parameters.
     """
 
-    def __init__(self, name, pins, instances, parameters_line):
+    def __init__(self, name, nets, instances, parameters_line):
         self.name = name
         self.labels = {}
         self.instances = instances
-        self.parameters = parameters_line
-        self.pins = pins
+        self.parameters = {}
+        self.isParameterEmpty = False
+        self.nets = nets
         NetlistElement.__init__(self, 'SubCircuit')
+
+        for i in range(len(self.instances)):
+            self.instances[i] = Instance(self.instances[i][0], self.instances[i][1], self.instances[i][2],
+                                         self.instances[i][3])
+
+        for i in range(len(self.nets)):
+            self.nets[i] = Pin(self.nets[i], [])
+
+        if parameters_line != '':
+            self.isParameterEmpty = True
+            for p in parameters_line[0]:
+                self.parameters[p[0]] = p[1]
 
     def __str__(self):
         insts = {}
         for i in self.instances:
             insts[i.name] = i.parent
         return self.typeof + " " + self.name + str(insts)
-
-    def map_instances(self, mapping_function):
-        for i in range(len(self.instances)):
-            self.instances[i] = mapping_function(self.instances[i])
 
     def parameters_check(self):
         if len(self.parameters) != 0:
@@ -49,15 +58,29 @@ class SubCircuit(NetlistElement):
 
 
 class Instance(NetlistElement):
-    def __init__(self, name, pins, reference, parameters):
+    def __init__(self, name, nets, parent, parameters):
+        self.isPmos = False
+        self.isNmos = False
         self.name = name
-        self.pins = pins
-        self.reference = reference
-        self.parameters = parameters
+        self.nets = nets
+        self.parent = parent
+        self.parameters = {}
         NetlistElement.__init__(self, 'instance')
 
+        for i in range(len(self.nets)):
+            self.nets[i] = Pin(self.nets[i], self.parent)
+
+        if self.parent == "modn":
+            self.isNmos = True
+
+        if self.parent == "modp":
+            self.isPmos = True
+
+        for p in parameters:
+            self.parameters[p[0]] = p[1]
+
     def __str__(self):
-        return self.typeof + " " + self.name + "@" + self.reference + str(self.parameters)
+        return self.typeof + " " + self.name + "@" + self.parent + str(self.parameters)
 
 
 class TopInstance(NetlistElement):
@@ -71,14 +94,38 @@ class TopInstance(NetlistElement):
         self.name = name
         self.parent = parent
         self.nets = nets
-        self.parameters = parameters
+        self.parameters = {}
         NetlistElement.__init__(self, 'top_instance')
+
+        for i in range(len(self.nets)):
+            self.nets[i] = Pin(self.nets[i], self.parent)
+
+        for p in parameters:
+            self.parameters[p[0]] = p[1]
 
     def __str__(self):
         return self.typeof + " " + self.name + "@" + self.parent + str(self.parameters)
 
     def __repr__(self):
         return self.name
+
+
+class Pin(NetlistElement):
+    def __init__(self, name, parent):
+        self.name = name
+        self.parent = parent
+        self.net = False
+        self.direction = False
+        NetlistElement.__init__(self, 'pin')
+
+    def connect(self, net):
+        if not self.net:
+            # get the net object from the subcircuit
+            self.net = self.parent.parent.nets[net]
+            self.net.connect(self)
+
+    def __repr__(self):
+        return self.parent.__repr__() + "." + self.name
 
 
 class Comments(NetlistElement):

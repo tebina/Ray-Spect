@@ -36,21 +36,21 @@ def parse_netlist(file_string):
     param_name = identifier
     param_value = expression
     inst_parameter = pp.Group(param_name('name') + equal_sign + param_value('value')).setResultsName('key')
-    many_parameters = pp.Group(pp.ZeroOrMore(inst_parameter | line_break)).setResultsName(
+    parameters = pp.Group(pp.ZeroOrMore(inst_parameter | line_break)).setResultsName(
         'parameters')
 
     # Handling nets
     net = identifier
     nets = pp.Group(pp.OneOrMore(net('net'))).setResultsName('nets')
     # Handling parameter definition line which always starts with "parameters" and ends with a line break
-    parameters = pp.Group(pp.Keyword("parameters").suppress() + many_parameters).setResultsName(
-        'parameters')
+    parameters_line = pp.Group(pp.Keyword("parameters").suppress() + parameters).setResultsName(
+        'parameters_line')
 
     # Instance handling
     instance_name = identifier
     parent_instance = identifier
     instance = pp.Group(instance_name('name') + open_parenthesis + nets('nets') + close_parenthesis + parent_instance(
-        'parent') + many_parameters('parameters') + eol).setResultsName('instance')
+        'parent') + parameters('parameters') + eol).setResultsName('instance')
     instance.ignore("\\\n")
     # Sub-circuit description handling
     subcircuit_name = identifier
@@ -58,9 +58,9 @@ def parse_netlist(file_string):
     subcircuit_content = pp.Group(pp.ZeroOrMore(instance | eol | line_break)).setResultsName('subnetlist')
     subcircuit = pp.Group(
         # content matches ==> subckt <name> <nets> <eol>
-        pp.Keyword("subckt").suppress() + subcircuit_name('name') + nets('pins') + eol
+        pp.Keyword("subckt").suppress() + subcircuit_name('name') + nets('nets') + eol
         # content matches the parameters line
-        + pp.ZeroOrMore(parameters)
+        + pp.ZeroOrMore(parameters_line)
         # content matches ==> parameters_line + instances | instances
         + subcircuit_content
         # content matches ==> ends <name> <eol>
@@ -69,8 +69,6 @@ def parse_netlist(file_string):
     # TOP instance is an instance format
     top_instance = instance.setResultsName('top_instance')
 
-    parameters.setParseAction(handle_parameters_line)
-    many_parameters.setParseAction(handle_parameters)
     top_instance.setParseAction(handle_top_instances)
     subcircuit.setParseAction(handle_subcircuit)
 
@@ -89,9 +87,9 @@ def handle_subcircuit(token):
     sc = token.subcircuit
     name = sc.name
     instances = sc.subnetlist
-    parameters = sc.parameters
-    pins = sc.pins
-    s = rh.SubCircuit(name, pins, instances, parameters)
+    parameters_line = sc.parameters_line
+    nets = sc.nets
+    s = rh.SubCircuit(name, nets, instances, parameters_line)
     return [s]
 
 
@@ -114,36 +112,11 @@ def handle_top_instances(token):
     return [s]
 
 
-def handle_parameters(token):
-    """
-    transforms the list containing the parameters as tuples into a dictionary {parameter : value , ... }
-    :param token:
-    :return: dict
-    """
-    d = {}
-    for p in token.parameters:
-        d[p[0]] = p[1]
-    return d
-
-
-def handle_parameters_line(token):
-    """
-    Handle parameters on a line
-
-    This function will handle any parameters on a line, and return the text of the parameter as a string.
-    :param token
-    :return: a long string containing all the parameters in the dict
-    """
-    d = token.parameters[0]
-    t = " ".join(f"{k}={v}" for k, v in d.items())
-    return t
-
-
 def handle_instance(token):
     inst = token.Instance
     name = inst.name
-    pins = inst.nets
+    nets = inst.nets
     parent = inst.parent
     parameters = inst.parameters
-    i = rh.Instance(name, pins, parent, parameters)
-    return [i]
+    i = rh.Instance(name, nets, parent, parameters)
+    return i

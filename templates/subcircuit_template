@@ -1,16 +1,16 @@
 {%-for subcircuit in parsed_netlist %}
 {%-if subcircuit.typeof == "SubCircuit" %}
 
-subckt {{subcircuit.name}} {{" ".join(subcircuit.pins)}}
+subckt {{subcircuit.name}}{% for net in subcircuit.nets %} {{net.name}}{% endfor %}
 {%- if subcircuit.parameters_check() == True%}
-parameters {{subcircuit.parameters}}
+parameters {% for keys, values in subcircuit.parameters.items() %} {{keys}}={{values}}{% endfor %}
 {%- endif%}
 {%-for inst in subcircuit.instances %}
-    {{inst.name}} ({{" ".join(inst.nets)}}) {{inst.parent}}{% for keys, values in inst.many_parameters.items() %} {{keys}}={{values}}{% endfor %}
+    {{inst.name}} ({% for net in inst.nets %} {{net.name}}{% endfor %}) {{inst.parent}}{% for keys, values in inst.parameters.items() %} {{keys}}={{values}}{% endfor %}
 {%- endfor %}
 ends {{subcircuit.name}}
 {%- endif%}
 {%- if subcircuit.typeof == "top_instance" %}
-{{subcircuit.name}} ({{" ".join(subcircuit.nets)}}) {{subcircuit.parent}}{% for keys, values in subcircuit.parameters.items() %} {{keys}}={{values}}{% endfor %}
+{{subcircuit.name}} ({% for net in subcircuit.nets %} {{net.name}}{% endfor %}) {{subcircuit.parent}}{% for keys, values in subcircuit.parameters.items() %} {{keys}}={{values}}{% endfor %}
 {%- endif %}
 {%- endfor %}
