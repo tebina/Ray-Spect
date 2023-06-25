@@ -14,7 +14,6 @@ class NetlistElement:
         return self.typeof
 
 
-
 class SubCircuit(NetlistElement):
     """
     This class defines a SubCircuit. A SubCircuit is a NetlistElement that represents a circuit with a single input
@@ -47,6 +46,18 @@ class SubCircuit(NetlistElement):
 
     def __repr__(self):
         return self.name
+
+
+class Instance(NetlistElement):
+    def __init__(self, name, pins, reference, parameters):
+        self.name = name
+        self.pins = pins
+        self.reference = reference
+        self.parameters = parameters
+        NetlistElement.__init__(self, 'instance')
+
+    def __str__(self):
+        return self.typeof + " " + self.name + "@" + self.reference + str(self.parameters)
 
 
 class TopInstance(NetlistElement):
