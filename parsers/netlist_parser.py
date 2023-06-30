@@ -1,5 +1,5 @@
 import pyparsing as pp
-from utils import results_handler as rh
+from utils import netlist_handler as rh
 
 
 def parse_netlist(file_string):

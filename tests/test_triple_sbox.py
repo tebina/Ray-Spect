@@ -1,5 +1,5 @@
 from parsers.netlist_parser import *
-from utils.propagate_param import PropagateParam as propagate_param
+from src.propagate_param import PropagateParam as propagate_param
 from parsers.def_parser import DefParser
 import unittest
 

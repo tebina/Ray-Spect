@@ -2,7 +2,7 @@
 {%-if subcircuit.typeof == "SubCircuit" %}
 
 subckt {{subcircuit.name}}{% for net in subcircuit.nets %} {{net.name}}{% endfor %}
-{%- if subcircuit.parameters_check() == True%}
+{%- if subcircuit.isParameterEmpty == True%}
 parameters {% for keys, values in subcircuit.parameters.items() %} {{keys}}={{values}}{% endfor %}
 {%- endif%}
 {%-for inst in subcircuit.instances %}

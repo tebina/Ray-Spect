@@ -1,3 +1,6 @@
+import utils.def_handler as dh
+import matplotlib.pyplot as plt
+
 
 def extract_data(line):
     line = line.lstrip("- ")
@@ -47,7 +50,15 @@ class DefParser:
                 continue
             mydict = {}
             extracted_data = extract_data(raw_string)
-            mydict["instance"] = extracted_data[0]
+            if len(extracted_data[0]) == 2:
+                mydict["instance"] = [dh.TopInstance(extracted_data[0][0]), dh.SubCircuit(extracted_data[0][1])]
+            elif len(extracted_data[0]) == 3:
+                mydict["instance"] = [dh.TopInstance(extracted_data[0][0]), dh.Instance(extracted_data[0][1]) , dh.SubCircuit(extracted_data[0][2])]
+            else:
+                mydict["instance"] = [dh.TopInstance(extracted_data[0][0])] + \
+                                     [dh.SubCircuit(component) for component in extracted_data[0][1:len(extracted_data[0]) - 3]] + \
+                                     [dh.Instance(extracted_data[0][-2])] + \
+                                     [dh.SubCircuit(extracted_data[0][-1])]
             mydict["xcoord"] = extracted_data[1][0]
             mydict["ycoord"] = extracted_data[1][1]
             self.components_data.append(mydict)
@@ -62,12 +73,27 @@ class DefParser:
         all_instances = self.def_parser()
         um = 1e3
         instances_in_region = []
-        # plt.figure(figsize=(20, 20), dpi=200)
         for instance in all_instances:
             if self.xcoord1 < int(instance["xcoord"]) < self.xcoord2 and self.ycoord1 < int(
                     instance["ycoord"]) < self.ycoord2:
                 instances_in_region.append(instance["instance"])
-        print("There are", len(instances_in_region), "instances in the rectangle in micrometers : (", self.xcoord1/um,
+        print("There are", len(instances_in_region), "instances in the rectangle in micrometers : (", self.xcoord1 / um,
               ",",
-              self.ycoord1/um, ") (", self.xcoord2/um, ",", self.ycoord2/um, ")")
+              self.ycoord1 / um, ") (", self.xcoord2 / um, ",", self.ycoord2 / um, ")")
         return instances_in_region
+
+    def plot_region(self):
+        all_instances = self.def_parser()
+        um = 1e3
+        plt.figure(figsize=(20, 20), dpi=200)
+        for instance in all_instances:
+            if self.xcoord1 < int(instance["xcoord"]) < self.xcoord2 and self.ycoord1 < int(
+                    instance["ycoord"]) < self.ycoord2:
+                plt.plot(float(instance["xcoord"]) / um, float(instance["ycoord"]) / um, marker="s", markersize=10,
+                         markeredgecolor="yellow", markerfacecolor="red")
+                plt.text(float(instance["xcoord"]) / um, float(instance["ycoord"]) / um, instance["instance"][-2],
+                         rotation=45, fontsize=5, weight='bold')
+            else:
+                plt.plot(float(instance["xcoord"]) / um, float(instance["ycoord"]) / um, marker="s", markersize=10,
+                         markeredgecolor="yellow", markerfacecolor="blue")
+        plt.savefig("instance_region.pdf", dpi='figure')

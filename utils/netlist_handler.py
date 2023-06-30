@@ -5,36 +5,59 @@ class NetlistElement:
     "SubCircuit", "top_instance", or "comment". It also has a visited property which
     states whether the element has been visited already.
     """
-
     def __init__(self, typeof):
+        """
+        Initializes a NetlistElement object.
+
+        Args:
+            typeof (str): The type of the NetlistElement.
+        """
         self.typeof = typeof
         self.visited = False
 
     def __str__(self):
+        """
+        Returns a string representation of the NetlistElement.
+
+        Returns:
+            str: The string representation of the NetlistElement.
+        """
         return self.typeof
+
+    def __setattr__(self, name, value):
+        # Allow modification of all attributes
+        self.__dict__[name] = value
 
 
 class SubCircuit(NetlistElement):
     """
     This class defines a SubCircuit. A SubCircuit is a NetlistElement that represents a circuit with a single input
-    and single output. It has a name, labels, instances, and parameters.
+    and single output. It has a name, instances, and parameters.
     """
 
     def __init__(self, name, nets, instances, parameters_line):
+        """
+        Initializes a SubCircuit object.
+
+        Args:
+            name (str): The name of the SubCircuit.
+            nets (list): The list of nets in the SubCircuit.
+            instances (list): The list of instances in the SubCircuit.
+            parameters_line (str): The line containing the parameters of the SubCircuit.
+        """
         self.name = name
-        self.labels = {}
-        self.instances = instances
+        self.instances = []
         self.parameters = {}
         self.isParameterEmpty = False
         self.nets = nets
         NetlistElement.__init__(self, 'SubCircuit')
 
-        for i in range(len(self.instances)):
-            self.instances[i] = Instance(self.instances[i][0], self.instances[i][1], self.instances[i][2],
-                                         self.instances[i][3])
+        for i in range(len(instances)):
+            self.instances.append(Instance(instances[i][0], instances[i][1], instances[i][2],
+                                         instances[i][3]))
 
         for i in range(len(self.nets)):
-            self.nets[i] = Pin(self.nets[i], [])
+            self.nets[i] = Pin(self.nets[i], "")
 
         if parameters_line != '':
             self.isParameterEmpty = True
@@ -47,18 +70,21 @@ class SubCircuit(NetlistElement):
             insts[i.name] = i.parent
         return self.typeof + " " + self.name + str(insts)
 
-    def parameters_check(self):
-        if len(self.parameters) != 0:
-            return True
-        else:
-            return False
-
     def __repr__(self):
         return self.name
 
 
 class Instance(NetlistElement):
     def __init__(self, name, nets, parent, parameters):
+        """
+            Initializes an Instance object.
+
+            Args:
+                name (str): The name of the Instance.
+                nets (list): The list of nets connected to the Instance.
+                parent (str): The parent of the Instance.
+                parameters (list): The list of parameters of the Instance.
+        """
         self.isPmos = False
         self.isNmos = False
         self.name = name
@@ -112,17 +138,18 @@ class TopInstance(NetlistElement):
 
 class Pin(NetlistElement):
     def __init__(self, name, parent):
+        """
+        Initializes a Pin object.
+
+        Args:
+            name (str): The name of the Pin.
+            parent (str): The parent of the Pin.
+        """
         self.name = name
         self.parent = parent
         self.net = False
         self.direction = False
         NetlistElement.__init__(self, 'pin')
-
-    def connect(self, net):
-        if not self.net:
-            # get the net object from the subcircuit
-            self.net = self.parent.parent.nets[net]
-            self.net.connect(self)
 
     def __repr__(self):
         return self.parent.__repr__() + "." + self.name
