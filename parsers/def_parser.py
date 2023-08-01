@@ -3,6 +3,12 @@ import matplotlib.pyplot as plt
 
 
 def extract_data(line):
+    """
+    Extracts data from a DEF file line.
+
+    :param line: A line from a DEF file.
+    :return: A tuple of the component name and coordinates.
+    """
     line = line.lstrip("- ")
     s = line.split(" ")
     component_tuple = s[0].split("/") + [s[1]]
@@ -11,10 +17,24 @@ def extract_data(line):
 
 
 def get_die_area(line):
+    """
+    Extracts the die area from a DEF file line.
+
+    :param line: A line from a DEF file.
+    :return: A tuple of the die width and height.
+    """
     return [line.split(" ")[2], line.split(" ")[3]], [line.split(" ")[6], line.split(" ")[7]]
 
 
 class DefParser:
+    """
+    Class for parsing DEF files.
+
+    :param def_file: The DEF file to parse.
+    :param region_point1: The coordinates of the first point of the region.
+    :param region_point2: The coordinates of the second point of the region.
+    """
+
     def __init__(self, def_file, region_point1, region_point2):
         um = 1e3
         self.def_file = def_file
@@ -29,6 +49,11 @@ class DefParser:
         return
 
     def prepare_data(self):
+        """
+        Prepares the data from the DEF file.
+
+        :return: A list of the lines from the DEF file.
+        """
         raw_strings = []
         with open(self.def_file, 'r') as f:
             for line in f:

@@ -2,8 +2,8 @@ from src.generate_graph import GenerateGraph
 from src.model_xray import ModelXray
 from utils.utility import generate_netlist
 
-netlist_graph = GenerateGraph("tests/input_files/triple_aes_sbox/aes_sbox_netlist",
-                              "tests/input_files/triple_aes_sbox/aes_sbox.def", (0, 0), (160, 160))
+netlist_graph = GenerateGraph("st_netlist",
+                              "st_netlist.def", (0, 0), (160, 160))
 #netlist_graph.plot_graph()
 model = ModelXray(netlist_graph,0.1,0.1,0.1)
 model.propagate_model()

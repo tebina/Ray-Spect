@@ -96,10 +96,10 @@ class Instance(NetlistElement):
         for i in range(len(self.nets)):
             self.nets[i] = Pin(self.nets[i], self.parent)
 
-        if self.parent == "modn":
+        if self.parent == "nsvtgp":
             self.isNmos = True
 
-        if self.parent == "modp":
+        if self.parent == "psvtgp":
             self.isPmos = True
 
         for p in parameters:
