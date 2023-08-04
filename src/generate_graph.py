@@ -51,22 +51,11 @@ class GenerateGraph:
     def plot_region(self):
         self.def_instance.plot_region()
 
-    # def fix_edge(self, search_instance):
-    #     sub_circuit = 0
-    #     for component in self.parsed_netlist.values():
-    #         if component.typeof == "SubCircuit":
-    #             for instance in component.instances:
-    #                 if instance.name == search_instance:
-    #                     sub_circuit = SubCircuit(component.name)
-    #     return sub_circuit
-
     def graph_preprocess(self):
         new_starting_points = []
         for starting_point in self.starting_points:
-            print(starting_point)
             match len(starting_point):
                 case 2:
-                    #component0 = self.fix_edge(starting_point[0].name)
                     component0 = TopInstance(self.parsed_netlist["top_instance_" + starting_point[0].name].name)
                     component1 = SubCircuit(self.parsed_netlist["top_instance_" + starting_point[0].name].parent)
                     self.edges.append((component0, component1))

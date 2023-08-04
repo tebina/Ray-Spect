@@ -5,6 +5,7 @@ class NetlistElement:
     "SubCircuit", "top_instance", or "comment". It also has a visited property which
     states whether the element has been visited already.
     """
+
     def __init__(self, typeof):
         """
         Initializes a NetlistElement object.
@@ -54,7 +55,7 @@ class SubCircuit(NetlistElement):
 
         for i in range(len(instances)):
             self.instances.append(Instance(instances[i][0], instances[i][1], instances[i][2],
-                                         instances[i][3]))
+                                           instances[i][3]))
 
         for i in range(len(self.nets)):
             self.nets[i] = Pin(self.nets[i], "")
@@ -122,7 +123,6 @@ class TopInstance(NetlistElement):
         self.nets = nets
         self.parameters = {}
         NetlistElement.__init__(self, 'top_instance')
-
         for i in range(len(self.nets)):
             self.nets[i] = Pin(self.nets[i], self.parent)
 

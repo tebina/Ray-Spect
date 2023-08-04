@@ -11,10 +11,8 @@ subckt modp ( d g s b )
 class ModelXray:
     def __init__(self, graph_object, n_shift, p_shift, static_leakage=0):
         self.graph_instance = graph_object.get_graph()
-        print(self.graph_instance.edges)
         self.netlist_buffer = graph_object.get_netlist_buffer()
         self.starting_points = [tuple(lst) for lst in graph_object.get_starting_points()]
-        print(self.starting_points)
         self.unique_instances = []
         for starting_tuple in self.starting_points:
             if len(starting_tuple) == 2 and starting_tuple[0].typeof == "top_instance":
@@ -63,8 +61,8 @@ class ModelXray:
         vsource_increment = 0
         instances = instances_list
         for instance in instances_list:
-            if instance.isNmos or instance.isPmos:
-                vsource_increment += 1
+            vsource_increment += 1
+            if instance.isNmos and self.n_shift != 0:
                 grid_input = instance.nets[1].name
                 vsource_plus = "added_net_" + str(vsource_increment)
                 vsource_minus = grid_input
@@ -74,6 +72,16 @@ class ModelXray:
                                          [vsource_plus, vsource_minus],
                                          "vsource",
                                          {"dc": str(self.n_shift), "type": "dc"}))
+            if instance.isPmos and self.p_shift != 0:
+                grid_input = instance.nets[1].name
+                vsource_plus = "added_net_" + str(vsource_increment)
+                vsource_minus = grid_input
+                instance.nets[1].name = "added_net_" + str(vsource_increment)
+                instances.append(
+                    self.append_instance("added_vsource_" + str(vsource_increment),
+                                         [vsource_plus, vsource_minus],
+                                         "vsource",
+                                         {"dc": str(self.p_shift), "type": "dc"}))
         self.netlist_buffer["sub_circuit_faulted_" + edge[0].name].instances = instances
 
     def handle_subcircuit_subcircuit(self, edge):
@@ -98,7 +106,6 @@ class ModelXray:
         for edge in self.propagation_paths_tuples:
             if edge[0].typeof == "top_instance" and edge[1].typeof == "sub_circuit":
                 if edge[0].name in self.unique_instances and not self.netlist_buffer["top_instance_" + edge[0].name].visited:
-                    print("is")
                     self.handle_topinstance_subcircuit(edge[0])
                 else:
                     continue
